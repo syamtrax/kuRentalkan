@@ -181,7 +181,7 @@ module.exports = {
       150: "1.5",
       200: "2",
     },
-    container: {},
+    container: { padding: "12rem" },
     content: {
       none: "none",
     },
@@ -281,10 +281,7 @@ module.exports = {
         '"Courier New"',
         "monospace",
       ],
-      nunito: [
-        "nunito", 
-        "sans-serif",
-      ],
+      nunito: ["nunito", "sans-serif"],
     },
     fontSize: {
       xs: ["0.75rem", { lineHeight: "1rem" }],

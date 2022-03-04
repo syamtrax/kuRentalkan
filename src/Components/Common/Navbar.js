@@ -2,7 +2,7 @@ import React from "react";
 import Logo from "../../Assets/logo.png";
 const Navbar = () => {
   return (
-    <div className="fixed top-0 right-0 left-0 z-50 w-full bg-gray-100 h-24">
+    <div className="font-nunito fixed top-0 right-0 left-0 z-50 w-full bg-gray-100 h-24">
       <div className="mx-auto container flex mt-4">
         <div className="w-1/2">
           <img className=" pt-5 h-auto" alt="" src={Logo} />
