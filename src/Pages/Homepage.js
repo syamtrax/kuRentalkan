@@ -2,6 +2,8 @@ import React from "react";
 import Navbar from "../Components/Common/Navbar";
 import Footer from "../Components/Common/Footer";
 import Hero1 from '../Assets/hero1.png'
+import Banner from '../Assets/hero2.png'
+import Gabung from '../Assets/Button_Gabung.png'
 import Kategori from '../Assets/kategori.png'
 import Mobil from '../Assets/mobil.png'
 import Konsol from '../Assets/game.png'
@@ -61,8 +63,15 @@ function Homepage() {
           </div>
         </div>
       </div>
-      <div></div>
-      {/* <Footer /> */}
+      <div className="mx-auto container flex justify-center mt-16 h-full w-full">
+        <img src={Banner} alt="" className="z-10 absolute"/>
+        <div class="z-40 relative container mx-auto flex flex-col items-center justify-center my-52 p-12 pt-16 text-gray-900 antialiased">
+          <button className="transform transition duration-300 scale-90 md:hover:scale-95">
+            <img src={Gabung} alt="" />
+          </button> 
+        </div>
+      </div>
+      <Footer />
     </div>
   );
 }
