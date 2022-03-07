@@ -15,7 +15,9 @@ module.exports = {
     colors: {
       transparent: "transparent",
       current: "currentColor",
-
+      birdong: "#012192",
+      birmud: "#389ffe",
+      birmid: "#0154de",
       black: colors.black,
       white: colors.white,
       gray: colors.coolGray,
