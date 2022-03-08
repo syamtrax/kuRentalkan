@@ -4,6 +4,9 @@ import logo from "../Assets/logo.png";
 import LoginBy from "../Components/LoginBy/LoginBy";
 import ModalComponent from "../Components/Modal/Modal";
 import { Link } from "react-router-dom";
+import { db } from '../firebase-config';
+import { collection, addDoc  } from '@firebase/firestore';
+
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -26,6 +29,11 @@ function Register() {
   const [seconds, setSeconds] = useState(0);
   const [disableButton, setDisable] = useState(false);
   const [modalShown, toggleModal] = useState(false);
+
+  // const createUser = async () => {
+  //   await addDoc(usersCollectionRef, {email: email, password: password, nomor: phonenumber});
+  // };
+  const usersCollectionRef = collection(db, 'users');
 
   const validateEmail = (email) => {
     const re =
@@ -90,13 +98,14 @@ function Register() {
     setSeconds(60);
   };
 
-  const handleRegister = () => {
+  const handleRegister = async () => {
     const emailChecked = validateEmail(email);
     const passwordChecked = validatePassword(password);
     const phoneChecked = validatePhoneNumber(phonenumber);
     // eslint-disable-next-line no-unused-vars
     const otpChecked = validateOTP(OTP);
     if (emailChecked && passwordChecked && phoneChecked) {
+      await addDoc(usersCollectionRef, {email: email, password: password, nomor: phonenumber});
       toggleModal(!modalShown);
       toggleOtp(true);
     }
@@ -187,7 +196,7 @@ function Register() {
                       <p className=" text-red-500">{checkedPhone}</p>
                     )}
                   </div>
-                  <div className="hidden lg:block relative">
+                  {/* <div className="hidden lg:block relative">
                     <div className=" flex flex-col py-2">
                       <label className="text-base" htmlFor="OTP">
                         Konfirmasi OTP
@@ -217,7 +226,7 @@ function Register() {
                     {checkedOTP.length > 0 && (
                       <p className=" text-red-500">{checkedOTP}</p>
                     )}
-                  </div>
+                  </div> */}
                 </div>
                 <div className="flex items-center flex-col">
                   <button

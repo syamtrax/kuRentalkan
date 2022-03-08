@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { db } from '../../firebase-config';
-import { collection, getDocs, addDoc  } from 'firebase/firestore';
+import { collection, getDocs, addDoc  } from '@firebase/firestore';
 
 const Usrs = () => {
   const [newName, setNewName] = useState('');

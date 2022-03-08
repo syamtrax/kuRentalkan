@@ -12,11 +12,18 @@ import Motor from '../Assets/motor.png'
 import Foto from '../Assets/kamera.png'
 import Buku from '../Assets/buku.png'
 import LihatS from '../Assets/Button_Lihat Semua.png'
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useLocation } from 'react-router-dom';
 
 function Homepage() {
   const [query, setQuery] = useState("");
+  const location = useLocation();
 
+  let isLogged = location.state.isLogged;
+  useEffect(() => {
+    console.log(isLogged)   
+  }, [isLogged])
+  
   return (
     <div>
       <Navbar />

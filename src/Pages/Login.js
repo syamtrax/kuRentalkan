@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { EyeIcon, EyeOffIcon, ChevronLeftIcon } from "@heroicons/react/outline";
 import logo from "../Assets/logo.png";
 import LoginBy from "../Components/LoginBy/LoginBy";
 import { Link } from "react-router-dom";
+import { db } from '../firebase-config';
+import { collection, getDocs, addDoc  } from '@firebase/firestore';
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState(" ");
@@ -10,41 +13,83 @@ const Login = () => {
   const [toggle, setToggle] = useState(false);
   const [checkedEmail, setCheckedEmail] = useState("");
   const [checkedPassword, setCheckedPassword] = useState("");
+  const [checkedLogin, setCheckedLogin] = useState("");
+
+  const [users, setUsers] = useState([]);
+  const [authEmail, setAuthEmail] = useState(false);
+  const [authTry, setAuthTry] = useState(false)
+  const [authPw, setAuthPw] = useState(false);
+  const usersCollectionRef = collection(db, 'users');
+  const history = useHistory();
+  
+  useEffect(() => {
+    const getUsers = async () => {
+      const data = await getDocs(usersCollectionRef);
+      setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+    };
+
+    getUsers();
+  }, [])
 
   const validateEmail = (email) => {
     const re =
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (re.test(email)) {
       setCheckedEmail("");
-      return true;
-    } else {
-      setCheckedEmail(
-        "Email yang anda masukkan tidak valid atau belum terdaftar"
-      );
+      users.map((user) => {
+        if (user.email == email) {
+          setAuthEmail(!authEmail);
+          return true;
+        }
+      })
       return false;
-    }
+    } 
+    setCheckedEmail(
+      "Email yang anda masukkan tidak valid atau belum terdaftar"
+    )
+    return true;
   };
 
   const validatePassword = (password) => {
     if (password.length < 8) {
       setCheckedPassword("Password kurang dari 8 karakter");
       return false;
-    } else {
-      setCheckedPassword("");
-      return true;
     }
+    setCheckedPassword("");
+      users.map((user) => {        
+        if (user.password == password) {
+          setAuthPw(true);
+          return true;
+        }
+      })
+    console.log(authPw);
+    return true;
   };
 
-  const HandleLogin = () => {
-    const checkEmail = validateEmail(email);
-    const checkPassword = validatePassword(password);
+  useEffect(() => {
+    if(authTry)
+      setCheckedLogin("Email atau password yang anda masukkan salah");
+  }, [authTry])
+  
+  // useEffect(() => {
+  //   if (authPw != true && authTry == true) {
+  //     setCheckedLogin("Email atau password yang anda masukkan salah");
+  //   }
+  // }, [authEmail])
 
-    if (checkEmail && checkPassword) {
-      console.log("sukses");
-      // window.location.href = "/";
-    } else {
-      console.log("gagal");
-    }
+  useEffect(() => {
+    if (authEmail == true && authPw == true) {
+      // console.log("BENER KKNOTNOEOL BABI " + authPw);
+      // console.log("Bener suu email e " + authEmail);
+      // console.log("sukses");
+      history.push("/", { isLogged: true });        // window.location.href = "/";
+    } 
+  }, [authPw, authEmail])
+
+  const HandleLogin = () => {
+    validateEmail(email);
+    validatePassword(password);
+    setAuthTry(true);
   };
 
   return (
@@ -121,6 +166,11 @@ const Login = () => {
                     <Link to="/lupapass">Lupa kata sandi? </Link>
                   </span>
                   <div className="flex items-center flex-col">
+                    {checkedLogin !== "" && (
+                      <p className=" text-red-500 my-2 font-nunito">
+                        {checkedLogin}
+                      </p>
+                    )}
                     <button
                       type="submit"
                       className={`${
