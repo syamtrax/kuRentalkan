@@ -19,11 +19,8 @@ function Homepage() {
   const [query, setQuery] = useState("");
   const location = useLocation();
 
-  let isLogged = location.state.isLogged;
-  useEffect(() => {
-    console.log(isLogged)   
-  }, [isLogged])
-  
+  let isLogged = location.state ? location.state.isLogged : ''
+
   return (
     <div>
       <Navbar />
