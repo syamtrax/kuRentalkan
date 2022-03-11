@@ -4,6 +4,8 @@ import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import Firetest from "./Pages/Firetest";
 import Search from "./Pages/Search";
+import TambahProduk from "./Pages/TambahProduk";
+import EditProduk from "./Pages/EditProduk";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
           <Route path="/register" exact render={() => <Register />} />
           <Route path="/firetest" exact render={() => <Firetest />} />
           <Route path="/search" exact render={() => <Search />} />
+          <Route path="/tambah" exact render={() => <TambahProduk />} />
+          <Route path="/edit" exact render={() => <EditProduk />} />
         </Switch>
       </BrowserRouter>
     </div>
