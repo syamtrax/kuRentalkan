@@ -14,6 +14,7 @@ import Buku from "../Assets/buku.png";
 import LihatS from "../Assets/Button_Lihat Semua.png";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { ChevronRightIcon } from "@heroicons/react/outline";
 
 function Homepage() {
   const [query, setQuery] = useState("");
@@ -34,28 +35,40 @@ function Homepage() {
         } mt-36 flex flex-col items-center font-nunito`}
       >
         <div className="container -mb-36">
-          <h1>Jadwal Pinjam</h1>
-          <div className="flex h-screen">
-            <div className="w-1/3 bg-gray-200 h-4/6 rounded-lg">
+          <h1 className="text-blue-700 text-2xl font-bold my-2">
+            Jadwal Pinjam
+          </h1>
+          <div className="flex h-96">
+            <div className="w-1/2  shadow-lg border bg-gray-200 h-2/4 rounded-lg">
               <div className="flex flex-col items-center rounded-t-lg py-2 bg-blue-700">
                 <h1 className="text-white font-bold text-xl">Meminjamkan</h1>
               </div>
               <div className="flex flex-col items-center h-3/4 ">
-                <div className="my-auto flex-col flex items-center">
-                  <p className="font-bold ">Barangmu belum</p>
-                  <p className="font-bold ">ada yang</p>
-                  <p className="font-bold ">dipinjam nih!</p>
-                  <button className="bg-blue-600 py-1 px-3 rounded-3xl text-white font-bold font-lg">
+                <div className="mt-4 flex-col flex items-center">
+                  <p className="font-bold text-lg">Barangmu belum ada yang</p>
+
+                  <p className="font-bold text-lg">dipinjam nih!</p>
+                  <button className="bg-blue-600 py-1 mt-2 px-3 rounded-3xl text-white font-bold font-lg">
                     Rentalkan barangmu!
                   </button>
                 </div>
               </div>
             </div>
-            <div className="w-2/3 ml-16 bg-gray-200 h-20 h-4/6 rounded-lg">
+            <div className="ml-12 shadow-lg border bg-gray-200 h-20 h-2/4 w-1/2 rounded-lg">
               <div className="flex flex-col items-center rounded-t-lg py-2 bg-blue-700">
                 <h1 className="text-white font-bold text-xl">Pinjam</h1>
               </div>
-              <div></div>
+              <div className="flex flex-col items-center h-3/4 ">
+                <div className="mt-4 flex-col w-full flex items-center">
+                  <p className="font-bold text-lg">Kamu belum pinjam barang</p>
+
+                  <p className="font-bold text-lg">lagi nih!</p>
+                  <div className="flex w-full mr-10 mt-8 justify-end text-blue-600 font-bold ">
+                    <p className="text-md mr-2">Lihat semua jadwal</p>
+                    <ChevronRightIcon className="h-6" />
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
