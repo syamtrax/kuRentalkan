@@ -15,6 +15,8 @@ import LihatS from "../Assets/Button_Lihat Semua.png";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { ChevronRightIcon } from "@heroicons/react/outline";
+import { Link } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 function Homepage() {
   const [query, setQuery] = useState("");
@@ -48,9 +50,11 @@ function Homepage() {
                   <p className="font-bold text-lg">Barangmu belum ada yang</p>
 
                   <p className="font-bold text-lg">dipinjam nih!</p>
-                  <button className="bg-blue-600 py-1 mt-2 px-3 rounded-3xl text-white font-bold font-lg">
-                    Rentalkan barangmu!
-                  </button>
+                  <Link to="/tambah">
+                    <button className="bg-blue-600 py-1 mt-2 px-3 rounded-3xl text-white font-bold font-lg">
+                      Rentalkan barangmu!
+                    </button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -80,13 +84,13 @@ function Homepage() {
       >
         <img src={Hero1} alt="" className="z-10 absolute" />
         <div class="z-40 relative container mx-auto flex flex-col items-center justify-center my-52 p-12 text-gray-900 antialiased">
-          <div class="mb-8 px-6 py-3 border border-gray-200 bg-white max-w-lg max-h-min border-opacity-75 rounded-lg shadow-lg w-full space-x-6 flex items-center transform transition duration-300 md:hover:scale-105">
+          <div class="mb-8 px-6 py-3 border border-gray-200 bg-white max-w-lg max-h-min border-opacity-75 rounded-lg shadow-lg w-full space-x-6 flex items-center transform transition duration-300 ">
             <input
               type="search"
               class="w-full bg-transparent text-base focus:outline-none"
               placeholder="Apa yang anda cari?"
             />
-            <button class="focus:outline-none transform transition duration-300 md:hover:scale-105">
+            <button class="focus:outline-none transform transition duration-300 ">
               <i class="fa fa-search text-gray-500"></i>
             </button>
           </div>
