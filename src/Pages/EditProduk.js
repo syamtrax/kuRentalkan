@@ -26,8 +26,8 @@ const Usrs = () => {
   // let isLogged = location.state ? location.state.isLogged : ''
   // let prodid = location.state ? location.state.prodid : ''
   // let prodKat = location.state ? location.state.prodKat : ''
-  let prodKat = 'konsol'
-  let prodid = 'ocBMXb7LVlfQyKqkdjgb'
+  let prodKat = 'mobil'
+  let prodid = 'F7XxLp3iVpXIDaqIMt2H'
 
   const updateProduk = async (id) => {
     const prodDoc = doc(db, prodKat, id)
