@@ -11,7 +11,7 @@ import { collection, addDoc } from '@firebase/firestore';
 
 const Usrs = () => {
   const [newName, setNewName] = useState('');
-  const [newKategori, setNewKategori] = useState('Pilih kategori');
+  const [newKategori, setNewKategori] = useState('mobil');
   const [newMerk, setNewMerk] = useState('');
   const [newTipe, setNewTipe] = useState('');
   const [newLokasi, setNewLokasi] = useState('');
