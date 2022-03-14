@@ -3,8 +3,8 @@ import { EyeIcon, EyeOffIcon, ChevronLeftIcon } from "@heroicons/react/outline";
 import logo from "../Assets/logo.png";
 import LoginBy from "../Components/LoginBy/LoginBy";
 import { Link } from "react-router-dom";
-import { db } from '../firebase-config';
-import { collection, getDocs, addDoc  } from '@firebase/firestore';
+import { db } from "../firebase-config";
+import { collection, getDocs, addDoc } from "@firebase/firestore";
 import { useHistory } from "react-router-dom";
 
 const Login = () => {
@@ -17,19 +17,20 @@ const Login = () => {
 
   const [users, setUsers] = useState([]);
   const [authEmail, setAuthEmail] = useState(false);
-  const [authTry, setAuthTry] = useState(false)
+  const [authTry, setAuthTry] = useState(false);
   const [authPw, setAuthPw] = useState(false);
-  const usersCollectionRef = collection(db, 'users');
+
+  const usersCollectionRef = collection(db, "users");
   const history = useHistory();
-  
+
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      setUsers(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+      setUsers(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     getUsers();
-  }, [])
+  }, []);
 
   const validateEmail = (email) => {
     const re =
@@ -41,12 +42,12 @@ const Login = () => {
           setAuthEmail(!authEmail);
           return true;
         }
-      })
+      });
       return false;
-    } 
+    }
     setCheckedEmail(
       "Email yang anda masukkan tidak valid atau belum terdaftar"
-    )
+    );
     return true;
   };
 
@@ -56,35 +57,26 @@ const Login = () => {
       return false;
     }
     setCheckedPassword("");
-      users.map((user) => {        
-        if (user.password == password) {
-          setAuthPw(true);
-          return true;
-        }
-      })
+    users.map((user) => {
+      if (user.password == password) {
+        setAuthPw(true);
+        return true;
+      }
+    });
     console.log(authPw);
     return true;
   };
 
   useEffect(() => {
-    if(authTry)
+    if (authTry)
       setCheckedLogin("Email atau password yang anda masukkan salah");
-  }, [authTry])
-  
-  // useEffect(() => {
-  //   if (authPw != true && authTry == true) {
-  //     setCheckedLogin("Email atau password yang anda masukkan salah");
-  //   }
-  // }, [authEmail])
+  }, [authTry]);
 
   useEffect(() => {
     if (authEmail == true && authPw == true) {
-      // console.log("BENER KKNOTNOEOL BABI " + authPw);
-      // console.log("Bener suu email e " + authEmail);
-      // console.log("sukses");
-      history.push("/", { isLogged: true });        // window.location.href = "/";
-    } 
-  }, [authPw, authEmail])
+      history.push("/", { isLogged: true }); // window.location.href = "/";
+    }
+  }, [authPw, authEmail]);
 
   const HandleLogin = () => {
     validateEmail(email);
