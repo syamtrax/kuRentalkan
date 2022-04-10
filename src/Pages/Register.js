@@ -264,11 +264,11 @@ function Register() {
                   </div>
                   <div className="flex justify-center lg:hidden space-x-4">
                     <LoginBy thirdParty={"Google"} />
-                    <LoginBy thirdParty={"MyValue"} />
+                    <LoginBy thirdParty={"kedua"}  />
                   </div>
                   <div className="space-y-4 hidden lg:block">
                     <LoginBy thirdParty={"Google"} />
-                    <LoginBy thirdParty={"MyValue"} />
+                    <LoginBy thirdParty={"kedua"} />
                   </div>
                   <div className="hidden lg:flex items-center text-center flex-col text-sm">
                     <span className="mt-10">

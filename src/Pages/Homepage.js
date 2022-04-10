@@ -100,9 +100,11 @@ function Homepage() {
         <div className="mx-auto container">
           <img src={Kategori} alt="" />
           <div className="pt-6 flex justify-center space-x-3">
-            <button className="transform transition duration-300 md:hover:scale-105">
-              <img src={Mobil} alt="" />
-            </button>
+            <Link to="/search">
+              <button className="transform transition duration-300 md:hover:scale-105">
+                <img src={Mobil} alt="" />
+              </button>
+            </Link>
             <div className="flex-col space-y-4 w-52">
               <button className="transform transition duration-300 md:hover:scale-105">
                 <img src={Musik} alt="" />

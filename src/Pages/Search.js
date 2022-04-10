@@ -1,9 +1,10 @@
 import Card from "../Components/Card/SearchCard";
 import Navbar from "../Components/Common/Navbar";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import { db } from '../firebase-config';
-import { collection, getDocs, addDoc  } from '@firebase/firestore';
+import { db } from "../firebase-config";
+import { collection, getDocs, addDoc } from "@firebase/firestore";
 
 const Search = () => {
   const location = useLocation();
@@ -11,16 +12,16 @@ const Search = () => {
   let isLogged = location.state ? location.state.isLogged : "";
 
   const [prods, setProds] = useState([]);
-  const usersCollectionRef = collection(db, 'mobil');
+  const usersCollectionRef = collection(db, "mobil");
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDocs(usersCollectionRef);
-      setProds(data.docs.map((doc) => ({...doc.data(), id: doc.id })));
+      setProds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
     };
 
     getUsers();
-  }, [])
+  }, []);
 
   useEffect(() => {
     console.log(isLogged);
@@ -37,13 +38,18 @@ const Search = () => {
             </div>
             <div className=""></div>
           </div>
-          <div className="h-1/2 ml-12 grid grid-cols-4 ">
-          {prods.map((prod) => {
-            return (
-            <Card name={prod.name} harga={prod.harga} lokasi={prod.lokasi}/>
-            );
-          })}
-            {/* <Card />
+          <Link to="/produk">
+            <div className="h-1/2 ml-12 grid grid-cols-4 ">
+              {prods.map((prod) => {
+                return (
+                  <Card
+                    name={prod.name}
+                    harga={prod.harga}
+                    lokasi={prod.lokasi}
+                  />
+                );
+              })}
+              {/* <Card />
             <Card />
             <Card />
             <Card />
@@ -51,7 +57,8 @@ const Search = () => {
             <Card />
             <Card />
             <Card /> */}
-          </div>
+            </div>
+          </Link>
         </div>
       </div>
     </div>
