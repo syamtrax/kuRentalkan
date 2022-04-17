@@ -6,7 +6,9 @@ import Firetest from "./Pages/Firetest";
 import Search from "./Pages/Search";
 import TambahProduk from "./Pages/TambahProduk";
 import EditProduk from "./Pages/EditProduk";
+import Cart from "./Pages/Cart";
 import ProdukDetail from "./Pages/ProductDetail";
+import Profile from "./Pages/Profile";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -22,6 +24,8 @@ function App() {
           <Route path="/tambah" exact render={() => <TambahProduk />} />
           <Route path="/edit" exact render={() => <EditProduk />} />
           <Route path="/produk" exact render={() => <ProdukDetail />} />
+          <Route path="/cart" exact render={() => <Cart />} />
+          <Route path="/profile" exact render={() => <Profile />} />
         </Switch>
       </BrowserRouter>
     </div>
