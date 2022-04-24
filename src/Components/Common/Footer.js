@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="md:flex-col  py-6  mx-auto container ">
         <div className="text-4xl font-black">kuRentalkan</div>
         <div className="text-2xl mt-4 mb-6">Perusahaan</div>
-        <div classname="text-base ">
+        <div className="text-base ">
           tentang kuRentalkan <br />
           FAQ <br />
           Syarat Dan ketentuan Penggunaan <br />
