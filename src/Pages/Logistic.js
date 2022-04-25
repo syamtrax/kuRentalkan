@@ -56,6 +56,7 @@ const Logistic = () => {
     setalamat(newalamat)
     setprofil(newprofil)
     setnotelp(newnotelp)
+    setAddModal(false)
     setShowModal(false)
   };
 
@@ -67,6 +68,8 @@ const Logistic = () => {
     setalamat(newalamat)
     setprofil(newprofil)
     setnotelp(newnotelp)
+    seteditModal(false)
+    setAddModal(false)
     setShowModal(false)
   };
 
