@@ -95,7 +95,10 @@ const Logistic = () => {
                   <h3 className="text-3xl font-black text-blue-700">{addModal ? 'Tambah Alamat' : editModal ? 'Edit Alamat' : 'Pilih Alamat Pengaraman'}</h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
-                    onClick={() => setShowModal(false)}
+                    onClick={() => {    
+                      seteditModal(false)
+                      setAddModal(false)
+                      setShowModal(false)}}
                   >
                     <span className="text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
                       x
