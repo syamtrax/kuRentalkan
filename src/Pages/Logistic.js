@@ -92,7 +92,7 @@ const Logistic = () => {
             <div className="relative w-2/3 my-6 mx-auto">
               <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                 <div className="flex items-start justify-between p-5 border-b border-solid border-gray-300 rounded-t ">
-                  <h3 className="text-3xl font-black text-blue-700">{addModal ? 'Tambah Alamat' : editModal ? 'Edit Alamat' : 'Pilih Alamat Pengaraman'}</h3>
+                  <h3 className="text-3xl font-black text-blue-700">{addModal && editModal !== true ? 'Tambah Alamat' : editModal ? 'Edit Alamat' : 'Pilih Alamat Pengaraman'}</h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
                     onClick={() => {    
@@ -110,6 +110,10 @@ const Logistic = () => {
                     <button className="text-center font-nunito text-blue-700 text-4xl relative p-6 flex-auto rounded-lg border-2 m-4 border-blue-700 h-24"
                       onClick={() => {
                         setAddModal(true)
+                        seteditModal(false)
+                        setnewalamat('')
+                        setnewnotelp('')
+                        setnewprofil('')
                       }}>
                       +
                     </button>
