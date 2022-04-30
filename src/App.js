@@ -10,6 +10,7 @@ import Cart from "./Pages/Cart";
 import ProdukDetail from "./Pages/ProductDetail";
 import Profile from "./Pages/Profile";
 import Logistic from "./Pages/Logistic";
+import Paymethod from "./Pages/paymethod";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -28,6 +29,7 @@ function App() {
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/profile" exact render={() => <Profile />} />
           <Route path="/logistic" exact render={() => <Logistic />} />
+          <Route path="/paymethod" exact render={() => <Paymethod />} />
         </Switch>
       </BrowserRouter>
     </div>
