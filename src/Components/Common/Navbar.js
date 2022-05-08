@@ -38,7 +38,6 @@ const Navbar = () => {
                 </button>
               </Link>
             </div>
-
             <div class=" px-6 py-2 mt-3 mr-20 border border-gray-200 bg-white max-w-lg max-h-min border-opacity-75 rounded-lg shadow-lg w-full space-x-6 flex items-center transform transition duration-300 ">
               <input
                 type="search"
@@ -56,7 +55,7 @@ const Navbar = () => {
               <Link to="/profile">
                 <div className="flex mx-4">
                   <UserCircleIcon className=" h-7 text-blue-700" />
-                  <p className="font-bold text-blue-700">Profile</p>
+                  <p className="font-bold text-blue-700 self-center">Profile</p>
                 </div>
               </Link>
             </div>

@@ -4,6 +4,7 @@ import produkutama from "../../src/Assets/Gambar Utama.png";
 import voucher from "../../src/Assets/Discvect.png";
 import gprofil from "../../src/Assets/profile.png";
 import glokasi from "../../src/Assets/Location.png";
+import { CreditCardIcon, ChevronRightIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { db } from "../firebase-config";
@@ -33,6 +34,8 @@ const Logistic = () => {
   const [editModal, seteditModal] = useState(false)
   const [costongkir, setcostongkir] = useState(0)
   const [voucher, setvoucher] = useState('')
+  const [showPay, setshowPay] = useState(false)
+  const [ongkirchanged, setongkirchanged] = useState(false)
   const vouchergratisongkir = 'mobiltistis'
   const ongkir = [{
     text: '-',
@@ -73,11 +76,23 @@ const Logistic = () => {
     setShowModal(false)
   };
 
+  const pay = () => {
+    if (alamat === '') {
+      alert('Pilih alamat!')
+      return
+    }
+    if (penerimaan === 'antar' && costongkir === 0 && ongkirchanged === false) {
+      alert('Pilih metode pengiriman!')
+      return
+    }
+    setshowPay(!showPay)
+  }
+
   useEffect(() => {
     const getAddress = async () => {
       const data = await getDocs(addressCollectionRef);
       setaddress(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
-      console.log(address)
+      // console.log(address)
     };
 
     getAddress();
@@ -86,6 +101,118 @@ const Logistic = () => {
   return (
     <div>
       <Navbar />
+      {showPay ? (
+        <>
+          <div className="flex justify-center font-nunito items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
+            <div className="relative w-1/4 my-6 mx-auto">
+              <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                <div className="flex justify-between w-full">
+                  <h3 className="ml-4 font-bold text-blue-700 text-xl">Pilih Pembayaran</h3>
+                  <button className="bg-transparent border-0 text-black float-right"
+                    onClick={() => { setshowPay(false) }}>
+                    <span className="text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">x</span>
+                  </button>
+                </div>
+                <div className="pl-4 py-2 text-lg font-bold text-black border-t-8 border-gray-100">Pembayaran di kuRentalkan</div>
+                <div className="px-2 py-2 flex justify-between w-full">
+                  <div className="flex gap-x-4">
+                    <div>
+                      <CreditCardIcon className="h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="text-base font-bold text-black">Rp 0</div>
+                      <div className="text-xs text-gray-500">Saldo Tidak Cukup</div>
+                    </div>
+                  </div>
+                  <button className="bg-transparent border-0 text-black float-right">
+                    <span className=" text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
+                      <ChevronRightIcon className="h-6 text-blue-500" />
+                    </span>
+                  </button>
+                </div>
+                <div className="pl-4 py-2 text-lg font-bold text-black border-t-8 border-gray-100">Kartu Kredit</div>
+                <div className="px-2 py-2 flex justify-between w-full">
+                  <div className="flex gap-x-4">
+                    <div>
+                      <CreditCardIcon className="h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="text-base font-bold text-black">Rp 0</div>
+                      <div className="text-xs text-gray-500">Saldo Tidak Cukup</div>
+                    </div>
+                  </div>
+                  <button className="bg-transparent border-0 text-black float-right">
+                    <span className=" text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
+                      <ChevronRightIcon className="h-6 text-blue-500" />
+                    </span>
+                  </button>
+                </div>
+                <div className="pl-4 py-2 text-lg font-bold text-black border-t-8 border-gray-100">Transfer Virtual Account</div>
+                <div className="px-2 flex justify-between w-full border-b-2 border-gray-100">
+                  <div className="my-2 flex">
+                    <div>
+                      <CreditCardIcon className="h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="pl-4 text-base font-bold text-black">BNI Account</div>
+                    </div>
+                  </div>
+                  <button className="bg-transparent border-0 text-black float-right">
+                    <span className=" text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
+                      <ChevronRightIcon className="h-6 text-blue-500" />
+                    </span>
+                  </button>
+                </div>
+                <div className="px-2 flex justify-between w-full border-b-2 border-gray-100">
+                  <div className="my-2 flex">
+                    <div>
+                      <CreditCardIcon className="h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="pl-4 text-base font-bold text-black">Briva</div>
+                    </div>
+                  </div>
+                  <button className="bg-transparent border-0 text-black float-right">
+                    <span className=" text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
+                      <ChevronRightIcon className="h-6 text-blue-500" />
+                    </span>
+                  </button>
+                </div>
+                <div className="px-2 flex justify-between w-full border-b-2 border-gray-100">
+                  <div className="my-2 flex">
+                    <div>
+                      <CreditCardIcon className="h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="pl-4 text-base font-bold text-black">BCA Account</div>
+                    </div>
+                  </div>
+                  <button className="bg-transparent border-0 text-black float-right">
+                    <span className=" text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
+                      <ChevronRightIcon className="h-6 text-blue-500" />
+                    </span>
+                  </button>
+                </div>
+                <div className="px-2 flex justify-between w-full">
+                  <div className="my-2 flex">
+                    <div>
+                      <CreditCardIcon className="h-6 text-blue-500" />
+                    </div>
+                    <div>
+                      <div className="pl-4 text-base font-bold text-black">Mandiri</div>
+                    </div>
+                  </div>
+                  <button className="bg-transparent border-0 text-black float-right">
+                    <span className=" text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
+                      <ChevronRightIcon className="h-6 text-blue-500" />
+                    </span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      ) : ('')}
       {showModal ? (
         <>
           <div className="flex justify-center font-nunito items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -95,10 +222,11 @@ const Logistic = () => {
                   <h3 className="text-3xl font-black text-blue-700">{addModal && editModal !== true ? 'Tambah Alamat' : editModal ? 'Edit Alamat' : 'Pilih Alamat Pengaraman'}</h3>
                   <button
                     className="bg-transparent border-0 text-black float-right"
-                    onClick={() => {    
+                    onClick={() => {
                       seteditModal(false)
                       setAddModal(false)
-                      setShowModal(false)}}
+                      setShowModal(false)
+                    }}
                   >
                     <span className="text-black opacity-7 h-8 w-8 text-xl block p-auto rounded-full">
                       x
@@ -310,9 +438,12 @@ const Logistic = () => {
             {penerimaan === 'Antar' ?
               <div className="form-group mt-8 flex flex-col">
                 <label className="font-nunito font-bold text-blue-700 text-lg">Pilih Pengiriman</label>
-                <select className='border-2 border-blue-700 rounded-lg form-control' value={costongkir} onChange={(event) => { setcostongkir(Number(event.target.value)) }}>
+                <select className='border-2 border-blue-700 rounded-lg form-control' value={costongkir} onChange={(event) => {
+                  setcostongkir(Number(event.target.value))
+                  setongkirchanged(true)
+                }}>
                   {ongkir.map(option => {
-                    return <option value={option.cost} key={option.text} >{option.text}</option>
+                    return <option value={option.cost} key={option.text} selected={costongkir == option.cost}>{option.text}</option>
                   })}
                 </select>
               </div>
@@ -346,7 +477,7 @@ const Logistic = () => {
               value={voucher}
               onChange={(event) => {
                 setvoucher(event.target.value)
-                if (voucher === vouchergratisongkir){
+                if (voucher === vouchergratisongkir) {
                   setcostongkir(0)
                 }
               }}
@@ -363,7 +494,10 @@ const Logistic = () => {
               })}</div>
           </div>
           <div>
-            <button className="mt-1 text-lg bg-birmid hover:bg-birmid-500 text-white py-2 px-4 border-2 font-bold border-birmid hover:border-transparent rounded-xl">
+            <button className="mt-1 text-lg bg-birmid hover:bg-birmid-500 text-white py-2 px-4 border-2 font-bold border-birmid hover:border-transparent rounded-xl"
+              onClick={() => {
+                pay()
+              }}>
               Pilih Pembayaran
             </button>
           </div>
