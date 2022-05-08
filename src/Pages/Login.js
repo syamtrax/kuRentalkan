@@ -16,6 +16,7 @@ const Login = () => {
   const [checkedLogin, setCheckedLogin] = useState("");
 
   const [users, setUsers] = useState([]);
+  const [uid, setuid] = useState('')
   const [authEmail, setAuthEmail] = useState(false);
   const [authTry, setAuthTry] = useState(false);
   const [authPw, setAuthPw] = useState(false);
@@ -60,6 +61,7 @@ const Login = () => {
     users.map((user) => {
       if (user.password == password) {
         setAuthPw(true);
+        setuid(user.id)
         return true;
       }
     });
@@ -74,6 +76,7 @@ const Login = () => {
 
   useEffect(() => {
     if (authEmail == true && authPw == true) {
+      localStorage.setItem('user', JSON.stringify(uid))
       history.push("/", { isLogged: true }); // window.location.href = "/";
     }
   }, [authPw, authEmail]);

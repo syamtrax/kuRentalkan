@@ -9,8 +9,16 @@ import {
 } from "@heroicons/react/outline";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
+
 const Navbar = () => {
   const location = useLocation();
+  const [uid, setuid] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
 
   let isLogged = location.state ? location.state.isLogged : "";
 
@@ -20,7 +28,7 @@ const Navbar = () => {
 
   return (
     <>
-      {isLogged ? (
+      {uid !== "" ? (
         <div className="font-nunito fixed top-0 right-0 left-0 z-50 w-full bg-gray-100 h-24">
           <div className="mx-auto container flex mt-4 ">
             <div className="w-2/3 ">
@@ -45,10 +53,12 @@ const Navbar = () => {
               <ChatAlt2Icon className="mx-1 h-7 text-blue-700" />
               <ShoppingCartIcon className="mx-1 h-7 text-blue-700" />
               <CalendarIcon className="mx-1 h-7 text-blue-700" />
-              <div className="flex mx-4">
-                <UserCircleIcon className=" h-7 text-blue-700" />
-                <p className="font-bold text-blue-700">profile</p>
-              </div>
+              <Link to="/profile">
+                <div className="flex mx-4">
+                  <UserCircleIcon className=" h-7 text-blue-700" />
+                  <p className="font-bold text-blue-700">Profile</p>
+                </div>
+              </Link>
             </div>
           </div>
         </div>
