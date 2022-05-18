@@ -56,7 +56,7 @@ const ItemList = ({
         <div className="hidden lg:block w-4/6">
           <h1 className="mt-2 mb-2 font-bold text-lg">{judul}</h1>
           <div className="flex my-2">
-            <p className=" border-r-2 pr-2 pr-2 text-sm">Tersewa 100</p>
+            <p className=" border-r-2 pr-2 text-sm">Tersewa 100</p>
 
             <p className=" border-r-2 pr-2 ml-2 text-sm">
               4.9 &#40;<a className="text-gray-500 ">80 ulasan</a>&#41;
