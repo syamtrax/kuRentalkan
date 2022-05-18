@@ -10,7 +10,6 @@ import {
 import { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 
-
 const Navbar = () => {
   const location = useLocation();
   const history = useHistory();
@@ -22,9 +21,9 @@ const Navbar = () => {
   });
 
   const handleLogout = () => {
-    localStorage.removeItem('user', JSON.stringify(uid))
-    history.push('/login')
-  }
+    localStorage.removeItem("user", JSON.stringify(uid));
+    history.push("/");
+  };
 
   let isLogged = location.state ? location.state.isLogged : "";
 
@@ -56,7 +55,9 @@ const Navbar = () => {
             </div>
             <div className="pt-5  flex justify-end ">
               <ChatAlt2Icon className="mx-1 my-auto h-7 text-blue-700" />
-              <ShoppingCartIcon className="mx-1 my-auto h-7 text-blue-700" />
+              <Link to="/cart">
+                <ShoppingCartIcon className="mx-1 my-auto h-7 text-blue-700" />
+              </Link>
               <CalendarIcon className="mx-1 my-auto h-7 text-blue-700" />
               <Link to="/profile">
                 <div className="flex mx-4 mt-1 ">
@@ -64,7 +65,12 @@ const Navbar = () => {
                   <p className="font-bold text-blue-700 self-center">Profile</p>
                 </div>
               </Link>
-              <button className="font-bold text-blue-700 my-auto" onClick={() => handleLogout()}>Logout</button>
+              <button
+                className="font-bold text-blue-700 my-auto"
+                onClick={() => handleLogout()}
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>

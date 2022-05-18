@@ -65,7 +65,12 @@ const ItemList = ({
               Diskusi &#40;<a className="text-gray-500">25</a>&#41;
             </p>
           </div>
-          <p className="text-lg font-bold mt-2 w-1/2">Rp{harga}</p>
+          <p className="text-lg font-bold mt-2 w-1/2">
+            {harga.toLocaleString("id-ID", {
+              style: "currency",
+              currency: "IDR",
+            })}
+          </p>
           <div className="rounded-lg border-2 flex mt-3 w-max">
             <UserCircleIcon className="text-blue-700 h-20 my-2 ml-7" />
             <div className="my-auto mx-4">

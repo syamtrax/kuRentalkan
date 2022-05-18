@@ -8,6 +8,11 @@ import { useEffect, useState } from "react";
 const Cart = () => {
   const [products, setProducts] = useState(dataDummy.data);
   const [valueY, setValueY] = useState(0);
+  const [costongkir, setcostongkir] = useState(0);
+  const [voucher, setvoucher] = useState("");
+  const [totalProd, settotalProd] = useState(0);
+  const [cartTotal, setcartTotal] = useState(0);
+  const vouchergratisongkir = "mobiltistis";
 
   useEffect(() => {
     window.addEventListener("scroll", () => {
@@ -15,7 +20,18 @@ const Cart = () => {
     });
   });
 
-  const cartTotal = products.reduce((total, { price = 0 }) => total + price, 0);
+  useEffect(() => {
+    let tot = 0;
+    let totPrice = 0;
+    products.map((o, i) => {
+      if (o.isChecked === true) {
+        tot = tot + 1;
+        totPrice = totPrice + (o.price*o.num)
+      }
+    });
+    settotalProd(tot);
+    setcartTotal(totPrice)
+  }, [products]);
 
   const handleChange = (e) => {
     const { name, checked } = e.target;
@@ -40,8 +56,7 @@ const Cart = () => {
   return (
     <div>
       <div className="font-nunito ">
-        <div className="md:block hidden">
-        </div>
+        <div className="md:block hidden"></div>
         <main className="h-auto lg:container mx-auto lg:px-0 pt-20 lg:pt-40">
           <div>
             <div className=" lg:w-7/12 mx-auto lg:px-0">
@@ -84,29 +99,51 @@ const Cart = () => {
                   );
                 })}
               </div>
-              <div className="flex border-2 rounded-lg my-2 flex">
-                <img className="ml-4 h-10 my-auto " src={discvect} />
-                <p className="text-xl font-bold w-1/2 my-3 ml-3">
-                  Voucher kuRentalkan
-                </p>
-                <p className="text-xl my-3 ml-56">Masukkan Kode</p>
+              <div className="flex border-2 rounded-lg my-2 justify-between">
+                <div className="flex place-items-center w-1/2">
+                  <img className="ml-4 h-10 my-auto " src={discvect} />
+                  <p className="ml-4 text-xl font-bold ">Voucher kuRentalkan</p>
+                </div>
+                <input
+                  className="px-1 py-4 text-lg bg-white text-center"
+                  type="text"
+                  id="voucher"
+                  value={voucher}
+                  onChange={(event) => {
+                    setvoucher(event.target.value);
+                    if (voucher === vouchergratisongkir) {
+                      setcostongkir(0);
+                    }
+                  }}
+                  placeholder="Masukkan Voucher"
+                />
               </div>
               <div className="flex bg-gray-200 rounded-lg my-2">
                 <div className="w-1/2 my-3 ml-4">
                   <p className="text-xl">Total Biaya</p>
-                  <p className="text-xl font-bold">Rp{cartTotal}</p>
+                  <p className="text-xl font-bold">
+                    {cartTotal.toLocaleString("id-ID", {
+                      style: "currency",
+                      currency: "IDR",
+                    })}
+                  </p>
                 </div>
                 <div className="my-auto">
-                  <button className=" ml-72 bg-blue-700 text-white py-2 px-5 rounded-full ">
-                    Pesan (3)
+                  <button
+                    className={
+                      totalProd === 0
+                        ? "ml-72 bg-gray-500 text-white py-2 px-5 rounded-full "
+                        : " ml-72 bg-blue-700 text-white py-2 px-5 rounded-full "
+                    }
+                  >
+                    Pesan ({totalProd})
                   </button>
                 </div>
               </div>
             </div>
           </div>
         </main>
-        <footer className="hidden lg:block bg-white border-t-2">
-        </footer>
+        <footer className="hidden lg:block bg-white border-t-2"></footer>
       </div>
     </div>
   );
