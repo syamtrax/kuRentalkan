@@ -13,6 +13,7 @@ const Usrs = () => {
   const [newKategori, setNewKategori] = useState("Pilih kategori");
   const [newMerk, setNewMerk] = useState("");
   const [newTipe, setNewTipe] = useState("");
+  const [newTahun, setNewTahun] = useState(0);
   const [newLokasi, setNewLokasi] = useState("");
   const [newHarga, setNewHarga] = useState(0);
   const [newOperator, setNewOperator] = useState("Tidak");
@@ -34,6 +35,7 @@ const Usrs = () => {
       kategori: newKategori,
       merk: newMerk,
       tipe: newTipe,
+      tahun: newTahun,
       lokasi: newLokasi,
       harga: newHarga,
       operator: newOperator,
@@ -72,7 +74,7 @@ const Usrs = () => {
                 console.log(newKategori);
               }}
             >
-              {/* <option value="" disabled selected default>Pilih kategori</option> */}
+              <option value="" disabled selected default>Pilih kategori</option>
               <option value="mobil">Mobil</option>
               <option value="alat_musik">Alat Musik</option>
               <option value="motor">Motor</option>
@@ -100,10 +102,21 @@ const Usrs = () => {
             />
           </div>
           <div className="">
-            <div className=" font-nunito font-bold text-lg">Lokasi</div>
+            <div className=" font-nunito font-bold text-lg">Tahun Produksi</div>
             <input
               className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Tuliskan lokasi"
+              placeholder="Masukkan Tahun Produksi"
+              type="number"
+              onChange={(event) => {
+                setNewTahun(event.target.value);
+              }}
+            />
+          </div>
+          <div className="">
+            <div className=" font-nunito font-bold text-lg">Alamat</div>
+            <input
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
+              placeholder="Tuliskan Alamat"
               onChange={(event) => {
                 setNewLokasi(event.target.value);
               }}
@@ -111,15 +124,19 @@ const Usrs = () => {
           </div>
           <div className="">
             <div className=" font-nunito font-bold text-lg">
-              Harga Barang/hari
+              Harga Barang/Hari
             </div>
-            <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Rp 0"
-              onChange={(event) => {
-                setNewHarga(Number(event.target.value));
-              }}
-            />
+            <div className="flex gap-x-4 items-center">
+              <p className="items-center text-xl">Rp </p>
+              <input
+                className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
+                placeholder="0"
+                type="number"
+                onChange={(event) => {
+                  setNewHarga(Number(event.target.value));
+                }}
+              />
+            </div>
           </div>
           <div className="">
             <div className=" font-nunito font-bold text-lg">

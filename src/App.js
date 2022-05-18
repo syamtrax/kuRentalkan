@@ -14,6 +14,7 @@ import Transaksi from "./Pages/Transaction"
 import Navbar from "./Components/Common/Navbar"
 import Footer from "./Components/Common/Footer"
 import {  Route, Switch, useLocation } from "react-router-dom";
+import Pembayaran from "./Pages/Pembayaran";
 
 function App() {
   const listUrl = ['/login', '/register' ]
@@ -40,6 +41,7 @@ function App() {
           <Route path="/profile" exact render={() => <Profile />} />
           <Route path="/checkout" exact render={() => <Logistic />} />
           <Route path="/transaksi" exact render={() => <Transaksi />} />
+          <Route path="/pembayaran" exact render={() => <Pembayaran />} />
         </Switch>
       {listUrl.includes(pathname) !== true && <footer className="block"><Footer/></footer>}
     </>

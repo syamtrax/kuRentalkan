@@ -19,6 +19,12 @@ import { useHistory } from "react-router-dom";
 function Homepage() {
   const [query, setQuery] = useState("");
   const location = useLocation();
+  const [uid, setuid] = useState(() => {
+    // getting stored value
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
 
   let isLogged = location.state ? location.state.isLogged : "";
 
@@ -28,56 +34,60 @@ function Homepage() {
 
   return (
     <div>
-      <div
-        className={`${
-          isLogged ? "" : "hidden"
-        } mt-36 flex flex-col items-center font-nunito`}
-      >
-        <div className="container -mb-36">
-          <h1 className="text-blue-700 text-2xl font-bold my-2">
-            Jadwal Pinjam
-          </h1>
-          <div className="flex h-96">
-            <div className="w-1/2  shadow-lg border bg-gray-200 h-2/4 rounded-lg">
-              <div className="flex flex-col items-center rounded-t-lg py-2 bg-blue-700">
-                <h1 className="text-white font-bold text-xl">Meminjamkan</h1>
-              </div>
-              <div className="flex flex-col items-center h-3/4 ">
-                <div className="mt-4 flex-col flex items-center">
-                  <p className="font-bold text-lg">Barangmu belum ada yang</p>
+      {uid !== "" ? (
+        <div className={`mt-36 flex flex-col items-center font-nunito`}>
+          <div className="container -mb-36">
+            <h1 className="text-blue-700 text-2xl font-extrabold my-2">
+              Jadwal Pinjam
+            </h1>
+            <div className="flex h-96">
+              <div className="w-1/2  shadow-lg border bg-gray-200 h-2/4 rounded-lg">
+                <div className="flex flex-col items-center rounded-t-lg py-2 bg-blue-700">
+                  <h1 className="text-white font-bold text-xl">Meminjamkan</h1>
+                </div>
+                <div className="flex flex-col items-center h-3/4 ">
+                  <div className="flex-col flex items-center justify-center h-full">
+                    {/* <p className="font-bold text-lg">Barangmu belum ada yang</p>
 
-                  <p className="font-bold text-lg">dipinjam nih!</p>
-                  <Link to="/tambah">
-                    <button className="bg-blue-600 py-1 mt-2 px-3 rounded-3xl text-white font-bold font-lg">
-                      Rentalkan barangmu!
-                    </button>
-                  </Link>
+                    <p className="font-bold text-lg">dipinjam nih!</p> */}
+                    <Link to="/tambah">
+                      <button className="bg-blue-600 px-3 py-1 rounded-3xl text-white font-bold text-lg">
+                        Rentalkan barangmu!
+                      </button>
+                    </Link>
+                  </div>
                 </div>
               </div>
-            </div>
-            <div className="ml-12 shadow-lg border bg-gray-200 h-20 h-2/4 w-1/2 rounded-lg">
-              <div className="flex flex-col items-center rounded-t-lg py-2 bg-blue-700">
-                <h1 className="text-white font-bold text-xl">Pinjam</h1>
-              </div>
-              <div className="flex flex-col items-center h-3/4 ">
-                <div className="mt-4 flex-col w-full flex items-center">
-                  <p className="font-bold text-lg">Kamu belum pinjam barang</p>
+              <div className="ml-12 shadow-lg border bg-gray-200 h-20 h-2/4 w-1/2 rounded-lg">
+                <div className="flex flex-col items-center rounded-t-lg py-2 bg-blue-700">
+                  <h1 className="text-white font-bold text-xl">Pinjam</h1>
+                </div>
+                <div className="flex flex-col items-center h-3/4 ">
+                  <div className="mt-4 flex-col w-full flex items-center">
+                    <p className="font-bold text-lg">
+                      Kamu belum pinjam barang
+                    </p>
 
-                  <p className="font-bold text-lg">lagi nih!</p>
-                  <div className="flex w-full mr-10 mt-8 justify-end text-blue-600 font-bold ">
-                    <p className="text-md mr-2">Lihat semua jadwal</p>
-                    <ChevronRightIcon className="h-6" />
+                    <p className="font-bold text-lg">lagi nih!</p>
+                    <div className="flex w-full mr-10 mt-8 justify-end text-blue-600 font-bold ">
+                      <p className="text-md mr-2">Lihat semua jadwal</p>
+                      <ChevronRightIcon className="h-6" />
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
+      ) : (
+        ""
+      )}
       <div
-        className={`${
-          isLogged ? "" : "mt-36"
-        } mx-auto container flex justify-center  h-full w-full`}
+        className={
+          uid !== ""
+            ? "mx-auto container flex justify-center  h-full w-full"
+            : "mt-36 mx-auto container flex justify-center  h-full w-full"
+        }
       >
         <img src={Hero1} alt="" className="z-10 absolute" />
         <div class="z-40 relative container mx-auto flex flex-col items-center justify-center my-52 p-12 text-gray-900 antialiased">

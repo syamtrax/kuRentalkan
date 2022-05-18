@@ -35,7 +35,7 @@ const Navbar = () => {
   return (
     <>
       {uid !== "" ? (
-        <div className="font-nunito fixed top-0 right-0 left-0 z-50 w-full bg-gray-100 h-24">
+        <div className="font-nunito fixed top-0 right-0 left-0 z-50 w-full shadow-xl bg-white h-24">
           <div className="mx-auto container flex mt-4 ">
             <div className="w-2/3 ">
               <Link to="/">
@@ -69,7 +69,7 @@ const Navbar = () => {
           </div>
         </div>
       ) : (
-        <div className="font-nunito fixed top-0 right-0 left-0 z-50 w-full bg-gray-100 h-24">
+        <div className="font-nunito fixed top-0 right-0 left-0 z-50 w-full shadow-xl bg-white h-24">
           <div className="mx-auto container flex mt-4">
             <div className="w-1/2">
               <Link to="/">
