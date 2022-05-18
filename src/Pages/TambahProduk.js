@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../Components/Common/Navbar";
-import Footer from "../Components/Common/Footer";
 import Operator_ijo from "../Assets/Operator_ijo.png";
 import Operator from "../Assets/Operator.png";
 import Deposit_ijo from "../Assets/Deposit_ijo.png";
@@ -49,7 +47,6 @@ const Usrs = () => {
 
   return (
     <>
-      <Navbar />
       <div className="mx-auto container my-28">
         <div className="mx-auto container border rounded-xl border-blue-700 grid gap-y-4">
           <div className="text-2xl font-nunito font-black mt-6 text-blue-700">
@@ -204,7 +201,6 @@ const Usrs = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </>
   );
 };

@@ -1,5 +1,3 @@
-import Footer from "../Components/Common/Footer";
-import Navbar from "../Components/Common/Navbar";
 import produkutama from "../../src/Assets/Gambar Utama.png";
 import voucher from "../../src/Assets/Discvect.png";
 import gprofil from "../../src/Assets/profile.png";
@@ -100,7 +98,6 @@ const Logistic = () => {
 
   return (
     <div>
-      <Navbar />
       {showPay ? (
         <>
           <div className="flex justify-center font-nunito items-center overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
@@ -503,7 +500,6 @@ const Logistic = () => {
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 };

@@ -8,17 +8,23 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/outline";
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useHistory } from "react-router-dom";
 
 
 const Navbar = () => {
   const location = useLocation();
+  const history = useHistory();
   const [uid, setuid] = useState(() => {
     // getting stored value
     const saved = localStorage.getItem("user");
     const initialValue = JSON.parse(saved);
     return initialValue || "";
   });
+
+  const handleLogout = () => {
+    localStorage.removeItem('user', JSON.stringify(uid))
+    history.push('/login')
+  }
 
   let isLogged = location.state ? location.state.isLogged : "";
 
@@ -49,15 +55,16 @@ const Navbar = () => {
               </button>
             </div>
             <div className="pt-5  flex justify-end ">
-              <ChatAlt2Icon className="mx-1 h-7 text-blue-700" />
-              <ShoppingCartIcon className="mx-1 h-7 text-blue-700" />
-              <CalendarIcon className="mx-1 h-7 text-blue-700" />
+              <ChatAlt2Icon className="mx-1 my-auto h-7 text-blue-700" />
+              <ShoppingCartIcon className="mx-1 my-auto h-7 text-blue-700" />
+              <CalendarIcon className="mx-1 my-auto h-7 text-blue-700" />
               <Link to="/profile">
-                <div className="flex mx-4">
+                <div className="flex mx-4 mt-1 ">
                   <UserCircleIcon className=" h-7 text-blue-700" />
                   <p className="font-bold text-blue-700 self-center">Profile</p>
                 </div>
               </Link>
+              <button className="font-bold text-blue-700 my-auto" onClick={() => handleLogout()}>Logout</button>
             </div>
           </div>
         </div>

@@ -1,6 +1,4 @@
 import React from "react";
-import Navbar from "../Components/Common/Navbar";
-import Footer from "../Components/Common/Footer";
 import Hero1 from "../Assets/hero1.png";
 import Banner from "../Assets/hero2.png";
 import Gabung from "../Assets/Button_Gabung.png";
@@ -30,7 +28,6 @@ function Homepage() {
 
   return (
     <div>
-      <Navbar />
       <div
         className={`${
           isLogged ? "" : "hidden"
@@ -140,7 +137,6 @@ function Homepage() {
           </button>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

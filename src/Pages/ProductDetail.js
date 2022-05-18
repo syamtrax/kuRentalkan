@@ -1,5 +1,3 @@
-import Footer from "../Components/Common/Footer";
-import Navbar from "../Components/Common/Navbar";
 import produk from "../../src/Assets/produkmobil.png";
 import produkutama from "../../src/Assets/Gambar Utama.png";
 import { ChevronRightIcon, UserCircleIcon } from "@heroicons/react/outline";
@@ -21,7 +19,6 @@ const ProductDetail = () => {
   }, []);
   return (
     <div>
-      <Navbar />
       <div className="h-24 " />
       <div className="mx-auto container font-nunito">
         <top>
@@ -296,7 +293,6 @@ const ProductDetail = () => {
           </div>
         </bottom>
       </div>
-      <Footer />
     </div>
   );
 };

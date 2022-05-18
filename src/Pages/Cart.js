@@ -1,6 +1,4 @@
 /* eslint-disable multiline-ternary */
-import Header from "../Components/Common/Navbar";
-import Footer from "../Components/Common/Footer";
 import ItemList from "../Components/ItemList/ItemList";
 import discvect from "../Assets/Discvect.png";
 import dataDummy from "../dummyCheckout.json";
@@ -43,7 +41,6 @@ const Cart = () => {
     <div>
       <div className="font-nunito ">
         <div className="md:block hidden">
-          <Header value={valueY} />
         </div>
         <main className="h-auto lg:container mx-auto lg:px-0 pt-20 lg:pt-40">
           <div>
@@ -109,7 +106,6 @@ const Cart = () => {
           </div>
         </main>
         <footer className="hidden lg:block bg-white border-t-2">
-          <Footer />
         </footer>
       </div>
     </div>

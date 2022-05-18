@@ -1,5 +1,3 @@
-import Footer from "../Components/Common/Footer";
-import Navbar from "../Components/Common/Navbar";
 import { useState } from "react";
 import React from "react";
 import ItemTransaction from "../Components/Card/ItemTransaction";
@@ -17,13 +15,12 @@ const Transaction = () => {
   }
   return (
     <div>
-        {/* <Navbar /> */}
         <div className="mx-auto container flex justify-center h-full w-full font-nunito">
             <div>
 
             </div>
             <div>
-                <h1 className="text-blue-600 font-bold">DAFTAR TRANSAKSI</h1>
+                <h1 className="text-blue-700 font-black text-xl">DAFTAR TRANSAKSI</h1>
                 <div className="flex justify-between items-center">
                         <ul className="flex px-4 my-2 overflow-x-auto hide-scroll-bar">
                             <li onClick={() => handleChangeTabs('new_order')}
@@ -90,7 +87,6 @@ const Transaction = () => {
                 }
             </div>
         </div>
-        {/* <Footer /> */}
     </div>
   )
 }

@@ -11,12 +11,22 @@ import ProdukDetail from "./Pages/ProductDetail";
 import Profile from "./Pages/Profile";
 import Logistic from "./Pages/Logistic";
 import Transaksi from "./Pages/Transaction"
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Navbar from "./Components/Common/Navbar"
+import Footer from "./Components/Common/Footer"
+import {  Route, Switch, useLocation } from "react-router-dom";
 
 function App() {
+  const listUrl = ['/login', '/register' ]
+
+  const location = useLocation()
+  const pathname = location.pathname
   return (
-    <div>
-      <BrowserRouter>
+    <>
+      {listUrl.includes(pathname) !== true && <div>
+            <div className="block">
+                <Navbar/>
+            </div>
+          </div>}
         <Switch>
           <Route path="/" exact render={() => <Homepage />} />
           <Route path="/login" exact render={() => <Login />} />
@@ -31,8 +41,8 @@ function App() {
           <Route path="/checkout" exact render={() => <Logistic />} />
           <Route path="/transaksi" exact render={() => <Transaksi />} />
         </Switch>
-      </BrowserRouter>
-    </div>
+      {listUrl.includes(pathname) !== true && <footer className="block"><Footer/></footer>}
+    </>
   );
 }
 

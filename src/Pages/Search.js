@@ -1,5 +1,4 @@
 import Card from "../Components/Card/SearchCard";
-import Navbar from "../Components/Common/Navbar";
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
@@ -29,7 +28,6 @@ const Search = () => {
 
   return (
     <div>
-      <Navbar />
       <div className="flex flex-col items-center">
         <div className="font-nunito h-screen  container mt-36  flex">
           <div className="  w-1/5 border h-4/6  shadow-lg rounded-lg">
