@@ -20,6 +20,7 @@ const Usrs = () => {
   const [newDeposit, setNewDeposit] = useState("Tidak");
   const [newKondisi, setNewKondisi] = useState("");
   const [newDeskripsi, setNewDeskripsi] = useState("");
+  const [katChanged, setkatChanged] = useState(false);
   const [newUserid, setNewUserid] = useState("default"); //delete kalo dah bs pass uid
 
   // PENTING!!
@@ -30,20 +31,24 @@ const Usrs = () => {
   let CollectionRef = collection(db, newKategori);
 
   const createProduk = async () => {
-    const docRef = await addDoc(CollectionRef, {
-      name: newName,
-      kategori: newKategori,
-      merk: newMerk,
-      tipe: newTipe,
-      tahun: newTahun,
-      lokasi: newLokasi,
-      harga: newHarga,
-      operator: newOperator,
-      deposit: newDeposit,
-      kondisi: newKondisi,
-      deskripsi: newDeskripsi,
-      userid: newUserid,
-    });
+    if (newKategori === "Pilih kategori") {
+      alert("Pilih kategori!");
+    } else {
+      const docRef = await addDoc(CollectionRef, {
+        name: newName,
+        kategori: newKategori,
+        merk: newMerk,
+        tipe: newTipe,
+        tahun: newTahun,
+        lokasi: newLokasi,
+        harga: newHarga,
+        operator: newOperator,
+        deposit: newDeposit,
+        kondisi: newKondisi,
+        deskripsi: newDeskripsi,
+        userid: newUserid,
+      });
+    }
     // console.log(docRef.id)
   };
 
@@ -71,10 +76,18 @@ const Usrs = () => {
               value={newKategori}
               onChange={(event) => {
                 setNewKategori(event.target.value);
-                console.log(newKategori);
+                setkatChanged(true);
               }}
             >
-              <option value="" disabled selected default>Pilih kategori</option>
+              {katChanged ? (
+                <option value="" default disabled>
+                  Pilih kategori
+                </option>
+              ) : (
+                <option value="" default>
+                  Pilih kategori
+                </option>
+              )}
               <option value="mobil">Mobil</option>
               <option value="alat_musik">Alat Musik</option>
               <option value="motor">Motor</option>
@@ -113,10 +126,10 @@ const Usrs = () => {
             />
           </div>
           <div className="">
-            <div className=" font-nunito font-bold text-lg">Alamat</div>
+            <div className=" font-nunito font-bold text-lg">Lokasi</div>
             <input
               className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Tuliskan Alamat"
+              placeholder="Masukan Lokasi"
               onChange={(event) => {
                 setNewLokasi(event.target.value);
               }}
@@ -206,7 +219,17 @@ const Usrs = () => {
             />
           </div>
           <div className="flex justify-end w-full mb-12">
-            <Link to="/">
+            {katChanged === true ? (
+              <Link to="/">
+                <button
+                  type="submit"
+                  className="rounded-full bg-gradient-to-r from-birdong via-birmid to-birmud h-12 w-48 text-xl font-bold text-white font-nunito"
+                  onClick={createProduk}
+                >
+                  Kirim
+                </button>
+              </Link>
+            ) : (
               <button
                 type="submit"
                 className="rounded-full bg-gradient-to-r from-birdong via-birmid to-birmud h-12 w-48 text-xl font-bold text-white font-nunito"
@@ -214,7 +237,7 @@ const Usrs = () => {
               >
                 Kirim
               </button>
-            </Link>
+            )}
           </div>
         </div>
       </div>
