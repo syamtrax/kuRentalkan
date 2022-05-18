@@ -10,7 +10,8 @@ import Cart from "./Pages/Cart";
 import ProdukDetail from "./Pages/ProductDetail";
 import Profile from "./Pages/Profile";
 import Logistic from "./Pages/Logistic";
-import Transaksi from "./Pages/Transaction"
+import Transaksi from "./Pages/Transaction";
+import Pembayaran from "./Pages/Pembayaran";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
           <Route path="/profile" exact render={() => <Profile />} />
           <Route path="/checkout" exact render={() => <Logistic />} />
           <Route path="/transaksi" exact render={() => <Transaksi />} />
+          <Route path="/pembayaran" exact render={() => <Pembayaran />} />
         </Switch>
       </BrowserRouter>
     </div>
