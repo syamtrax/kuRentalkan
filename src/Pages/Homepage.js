@@ -40,7 +40,7 @@ function Homepage() {
       {uid !== "" ? (
         <div className={`mt-36 flex flex-col items-center font-nunito`}>
           <div className="container -mb-36">
-            <h1 className="text-blue-700 text-2xl font-bold my-2">
+            <h1 className="text-blue-700 text-2xl font-extrabold my-2">
               Jadwal Pinjam
             </h1>
             <div className="flex h-96">
@@ -49,12 +49,12 @@ function Homepage() {
                   <h1 className="text-white font-bold text-xl">Meminjamkan</h1>
                 </div>
                 <div className="flex flex-col items-center h-3/4 ">
-                  <div className="mt-4 flex-col flex items-center">
-                    <p className="font-bold text-lg">Barangmu belum ada yang</p>
+                  <div className="flex-col flex items-center justify-center h-full">
+                    {/* <p className="font-bold text-lg">Barangmu belum ada yang</p>
 
-                    <p className="font-bold text-lg">dipinjam nih!</p>
+                    <p className="font-bold text-lg">dipinjam nih!</p> */}
                     <Link to="/tambah">
-                      <button className="bg-blue-600 py-1 mt-2 px-3 rounded-3xl text-white font-bold font-lg">
+                      <button className="bg-blue-600 px-3 py-1 rounded-3xl text-white font-bold text-lg">
                         Rentalkan barangmu!
                       </button>
                     </Link>
