@@ -6,6 +6,7 @@ import { CreditCardIcon, ChevronRightIcon, UserCircleIcon } from "@heroicons/rea
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { db } from "../firebase-config";
+
 import {
   collection,
   getDocs,
@@ -34,6 +35,7 @@ const Logistic = () => {
   const [voucher, setvoucher] = useState('')
   const [showPay, setshowPay] = useState(false)
   const [ongkirchanged, setongkirchanged] = useState(false)
+  const [tokenbayar, settokenbayar] = useState('')
   const vouchergratisongkir = 'mobiltistis'
   const ongkir = [{
     text: '-',
@@ -83,7 +85,8 @@ const Logistic = () => {
       alert('Pilih metode pengiriman!')
       return
     }
-    setshowPay(!showPay)
+    //setshowPay(!showPay)
+    window.snap.pay("343c1974-2fed-490c-8dac-ed3dd7950e2d");
   }
 
   useEffect(() => {
@@ -93,8 +96,35 @@ const Logistic = () => {
       // console.log(address)
     };
 
+  
+
     getAddress();
   }, [showModal]);
+  
+  useEffect(()=>{
+    fetch('/api').then(
+      res => res.text()
+    ).then(
+      text => settokenbayar(text)
+    );
+  });
+
+  useEffect(() => {
+    const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
+    const myMidtransClientKey = 'SB-Mid-client-tt03aJ7OWlHB2-1Q'; //change this according to your client-key
+  
+    const script = document.createElement('script');
+    script.src = snapSrcUrl;
+    script.setAttribute('data-client-key', myMidtransClientKey);
+    script.async = true;
+  
+    document.body.appendChild(script);
+  
+    return () => {
+      document.body.removeChild(script);
+    }
+  }, []);
+
 
   return (
     <div>
