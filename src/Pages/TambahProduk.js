@@ -8,7 +8,8 @@ import { useLocation } from "react-router-dom";
 import { collection, addDoc } from "@firebase/firestore";
 import { Link } from "react-router-dom";
 import { storage} from "../firebase-config";
-import {ref, getDownloadURL, uploadBytesResumable} from "firebase/storage"
+import {ref, getDownloadURL, uploadBytesResumable} from "firebase/storage";
+import ProgressBar from "../Components/ProgressBar/progressBar";
 
 const Usrs = () => {
   const [newName, setNewName] = useState("");
@@ -28,9 +29,12 @@ const Usrs = () => {
   const [newUserid, setNewUserid] = useState("default"); //delete kalo dah bs pass uid
   const [upimage, setUpimage] = useState(null);
   const [progress, setProgress] = useState(0);
-  const [url, setUrl] = useState("");
-  console.log(url);
+  const [newUrl, setNewUrl] = useState("");
+  console.log(newUrl);
 
+  const bgColor = {
+    bgcolor: "#6a1b9a"
+  }
   // PENTING!!
   // const location = useLocation();
   // let isLogged = location.state ? location.state.isLogged : ''
@@ -57,7 +61,7 @@ const Usrs = () => {
         kondisi: newKondisi,
         deskripsi: newDeskripsi,
         userid: newUserid,
-        imageurl : url,
+        imageurl : newUrl,
       });
 
       const storageRef = ref(storage, `products/${upimage.name}`);
@@ -75,16 +79,15 @@ const Usrs = () => {
         () => {
           getDownloadURL(uploadImage.snapshot.ref)
           .then(url => {
-            setUrl(url);
+            setNewUrl(url);
             console.log("upload success", url)
           });
         }
       );
-
-      
-    }
-    // console.log(docRef.id)
+    }// console.log(docRef.id)
   };
+
+
 
 
 
@@ -256,12 +259,12 @@ const Usrs = () => {
               )}
             </div>
           </div>
-          <div className="">
+          <div className="w-full">
             <div className=" font-nunito font-bold text-lg">
               Upload Foto Produk
             </div>
-            <div className = "flex mt-2">
-                <div>
+            <div className = "mt-2 w-full content-center items-center ">
+                <div className = "">
                   <input className = "form-control w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 focus-within:rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                     type="file"
                     name="myImage"
@@ -272,10 +275,11 @@ const Usrs = () => {
                   />
                 </div>
             </div>
-            <div className = "mt-2">
+            <div className = "mt-2 w-full">
               {upimage && (
-                <div>
-                <img alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
+                <div className = "w-full">
+                <img className = "content-center" alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
+                <ProgressBar bgcolor = "#0154de" completed={progress}/>
                 <br />
                   <button onClick={()=>setUpimage(null)}>
                     <div className = "border-1 bg-birmid text-white font-black p-2 w-full text-center rounded-md">
