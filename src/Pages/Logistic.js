@@ -86,7 +86,7 @@ const Logistic = () => {
       return
     }
     //setshowPay(!showPay)
-    window.snap.pay("343c1974-2fed-490c-8dac-ed3dd7950e2d");
+    window.snap.pay(tokenbayar);
   }
 
   useEffect(() => {

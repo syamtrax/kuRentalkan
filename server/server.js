@@ -11,8 +11,8 @@ let snap = new midtransClient.Snap({
  
 let parameter = {
     "transaction_details": {
-        "order_id": "SADASDASXCASDSDASDAD1",
-        "gross_amount": 12345678
+        "order_id": "Asadekuontolll",
+        "gross_amount": 40000000
     },
     "credit_card":{
         "secure" : true
@@ -28,13 +28,16 @@ let parameter = {
 snap.createTransaction(parameter)
     .then((transaction)=>{
         // transaction token
-        let transactionToken = transaction.token;
+        transactionToken = transaction.token;
         console.log('transactionToken:',transactionToken);
         
-        app.get("/api", (req,res)=>{
-            res.send(transactionToken)
-        })    
+   
     })
+
+    app.get("/api", (req,res)=>{
+        res.send(transactionToken)
+        console.log("success")
+    }) 
     
 
 
