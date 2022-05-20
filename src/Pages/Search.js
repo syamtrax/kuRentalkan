@@ -11,7 +11,6 @@ const Search = () => {
   let isLogged = location.state ? location.state.isLogged : "";
 
   const [prods, setProds] = useState([]);
-  const usersCollectionRef = collection(db, "mobil");
 
   useEffect(() => {
     const getUsers = async () => {
@@ -26,6 +25,13 @@ const Search = () => {
     console.log(isLogged);
   }, [isLogged]);
 
+  function useQuery () {
+    return new URLSearchParams(useLocation().search)
+  }
+
+  const params = useQuery()
+  const paramsId = params ? params.get('query') : ''
+  const usersCollectionRef = collection(db, paramsId);
   return (
     <div>
       <div className="flex flex-col items-center">
@@ -36,17 +42,19 @@ const Search = () => {
             </div>
             <div className=""></div>
           </div>
-          <Link to="/produk">
             <div className="h-1/2 ml-12 grid grid-cols-4 ">
               {prods.map((prod) => {
                 return (
+                  <Link to={"/produk" + '/' + prod.kategori + '?id=' + prod.id} >
                   <Card
                     name={prod.name}
                     harga={prod.harga}
                     lokasi={prod.lokasi}
                   />
+                  </Link>
                 );
               })}
+
               {/* <Card />
             <Card />
             <Card />
@@ -56,7 +64,6 @@ const Search = () => {
             <Card />
             <Card /> */}
             </div>
-          </Link>
         </div>
       </div>
     </div>

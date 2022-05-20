@@ -3,20 +3,32 @@ import produkutama from "../../src/Assets/Gambar Utama.png";
 import { ChevronRightIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { db } from "../firebase-config";
 import { useState, useEffect } from "react";
-import { collection, getDocs } from "@firebase/firestore";
+import { doc, getDoc } from "firebase/firestore";
 import Card from "../Components/Card/SearchCard";
+import { useLocation } from "react-router-dom";
 const ProductDetail = () => {
+  const location = useLocation();
+  console.log(location)
+  console.log()
   const [prods, setProds] = useState([]);
-  const usersCollectionRef = collection(db, "mobil");
 
   useEffect(() => {
     const getUsers = async () => {
-      const data = await getDocs(usersCollectionRef);
-      setProds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      const data = await getDoc(usersCollectionRef);
+      console.log(data.data())
+      
     };
 
     getUsers();
   }, []);
+
+  function useQuery () {
+    return new URLSearchParams(useLocation().search)
+  }
+
+  const params = useQuery()
+  const paramsId = params !== null ? params.get('id') : ''
+  const usersCollectionRef = doc(db, location.pathname.substring(8), paramsId);
   return (
     <div>
       <div className="h-24 " />

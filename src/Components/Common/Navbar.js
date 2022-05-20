@@ -11,6 +11,7 @@ import { useState, useEffect } from "react";
 import { useLocation, useHistory } from "react-router-dom";
 
 const Navbar = () => {
+  const [search, handleSearch] = useState('')
   const location = useLocation();
   const history = useHistory();
   const [uid, setuid] = useState(() => {
@@ -31,6 +32,12 @@ const Navbar = () => {
     console.log(isLogged);
   }, [isLogged]);
 
+  const handleSearchValue = async (e) => {
+    if (e.keyCode === 13) {
+      history.push('/search?query=' + search)
+      window.location.reload()
+    }
+  }
   return (
     <>
       {uid !== "" ? (
@@ -48,6 +55,9 @@ const Navbar = () => {
                 type="search"
                 class="w-full bg-transparent text-base focus:outline-none"
                 placeholder="Apa yang anda cari?"
+                value={search}
+                onChange={(e) => { handleSearch(e.target.value) }}
+                onKeyUp={handleSearchValue}
               />
               <button class="focus:outline-none transform transition duration-300 md:hover:scale-105">
                 <i class="fa fa-search text-gray-500"></i>

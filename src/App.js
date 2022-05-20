@@ -36,7 +36,7 @@ function App() {
           <Route path="/search" exact render={() => <Search />} />
           <Route path="/tambah" exact render={() => <TambahProduk />} />
           <Route path="/edit" exact render={() => <EditProduk />} />
-          <Route path="/produk" exact render={() => <ProdukDetail />} />
+          <Route path="/produk/:kategori" exact render={() => <ProdukDetail />} />
           <Route path="/cart" exact render={() => <Cart />} />
           <Route path="/profile" exact render={() => <Profile />} />
           <Route path="/checkout" exact render={() => <Logistic />} />
