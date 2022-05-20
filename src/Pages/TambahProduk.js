@@ -24,6 +24,7 @@ const Usrs = () => {
   const [newDeskripsi, setNewDeskripsi] = useState("");
   const [katChanged, setkatChanged] = useState(false);
   const [newUserid, setNewUserid] = useState("default"); //delete kalo dah bs pass uid
+  const [upimage, setUpimage] = useState(null);
 
   // PENTING!!
   // const location = useLocation();
@@ -227,6 +228,31 @@ const Usrs = () => {
           <div className="">
             <div className=" font-nunito font-bold text-lg">
               Upload Foto Produk
+            </div>
+            <div className = "flex mt-2">
+                <div>
+                  <input className = "form-control w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 focus-within:rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    type="file"
+                    name="myImage"
+                    onChange={(event) => {
+                    console.log(event.target.files[0]);
+                    setUpimage(event.target.files[0]);
+                  }}
+                  />
+                </div>
+            </div>
+            <div className = "mt-2">
+              {upimage && (
+                <div>
+                <img alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
+                <br />
+                  <button onClick={()=>setUpimage(null)}>
+                    <div className = "border-1 bg-birmid text-white font-black p-2 w-full text-center rounded-md">
+                      Remove
+                    </div>
+                  </button>  
+                </div>
+              )}
             </div>
           </div>
           <div className="">
