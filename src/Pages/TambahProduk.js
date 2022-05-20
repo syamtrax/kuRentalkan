@@ -29,6 +29,7 @@ const Usrs = () => {
   const [upimage, setUpimage] = useState(null);
   const [progress, setProgress] = useState(0);
   const [url, setUrl] = useState("");
+  console.log(url);
 
   // PENTING!!
   // const location = useLocation();
@@ -56,6 +57,7 @@ const Usrs = () => {
         kondisi: newKondisi,
         deskripsi: newDeskripsi,
         userid: newUserid,
+        imageurl : url,
       });
 
       const storageRef = ref(storage, `products/${upimage.name}`);
@@ -78,6 +80,8 @@ const Usrs = () => {
           });
         }
       );
+
+      
     }
     // console.log(docRef.id)
   };
