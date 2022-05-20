@@ -7,6 +7,8 @@ import { db } from "../firebase-config";
 import { useLocation } from "react-router-dom";
 import { collection, addDoc } from "@firebase/firestore";
 import { Link } from "react-router-dom";
+import { storage} from "../firebase-config";
+import {ref, getDownloadURL, uploadBytesResumable} from "firebase/storage"
 
 const Usrs = () => {
   const [newName, setNewName] = useState("");
@@ -25,6 +27,8 @@ const Usrs = () => {
   const [katChanged, setkatChanged] = useState(false);
   const [newUserid, setNewUserid] = useState("default"); //delete kalo dah bs pass uid
   const [upimage, setUpimage] = useState(null);
+  const [progress, setProgress] = useState(0);
+  const [url, setUrl] = useState("");
 
   // PENTING!!
   // const location = useLocation();
@@ -53,9 +57,32 @@ const Usrs = () => {
         deskripsi: newDeskripsi,
         userid: newUserid,
       });
+
+      const storageRef = ref(storage, `products/${upimage.name}`);
+      const uploadImage = uploadBytesResumable(storageRef, upimage);
+      uploadImage.on(
+        "state_changed",
+        snapshot => {
+          const progress = 
+          Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
+          setProgress(progress);
+        },
+        error => {
+          console.log(error);
+        },
+        () => {
+          getDownloadURL(uploadImage.snapshot.ref)
+          .then(url => {
+            setUrl(url);
+            console.log("upload success", url)
+          });
+        }
+      );
     }
     // console.log(docRef.id)
   };
+
+
 
   return (
     <>
@@ -279,7 +306,7 @@ const Usrs = () => {
           </div>
           <div className="flex justify-end w-full mb-12">
             {katChanged === true ? (
-              <Link to="/">
+              // <Link to="/">
                 <button
                   type="submit"
                   className="rounded-full bg-gradient-to-r from-birdong via-birmid to-birmud h-12 w-48 text-xl font-bold text-white font-nunito"
@@ -287,7 +314,7 @@ const Usrs = () => {
                 >
                   Kirim
                 </button>
-              </Link>
+              // </Link>
             ) : (
               <button
                 type="submit"
