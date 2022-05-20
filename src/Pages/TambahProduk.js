@@ -279,7 +279,6 @@ const Usrs = () => {
               {upimage && (
                 <div className = "w-full">
                 <img className = "content-center" alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
-                <ProgressBar bgcolor = "#0154de" completed={progress}/>
                 <br />
                   <button onClick={()=>setUpimage(null)}>
                     <div className = "border-1 bg-birmid text-white font-black p-2 w-full text-center rounded-md">
@@ -312,6 +311,7 @@ const Usrs = () => {
               }}
             />
           </div>
+          <ProgressBar bgcolor = "#0154de" completed={progress}/>
           <div className="flex justify-end w-full mb-12">
             {katChanged === true ? (
               // <Link to="/">
