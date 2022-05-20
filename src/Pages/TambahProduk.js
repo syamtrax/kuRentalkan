@@ -10,11 +10,13 @@ import { Link } from "react-router-dom";
 
 const Usrs = () => {
   const [newName, setNewName] = useState("");
-  const [newKategori, setNewKategori] = useState("Pilih kategori");
   const [newMerk, setNewMerk] = useState("");
+  const [newKategori, setNewKategori] = useState("Pilih kategori");
   const [newTipe, setNewTipe] = useState("");
   const [newTahun, setNewTahun] = useState(0);
   const [newLokasi, setNewLokasi] = useState("");
+  const [newAlamat, setNewAlamat] = useState("");
+  const [newStok, setNewStok] = useState(0);
   const [newHarga, setNewHarga] = useState(0);
   const [newOperator, setNewOperator] = useState("Tidak");
   const [newDeposit, setNewDeposit] = useState("Tidak");
@@ -22,6 +24,7 @@ const Usrs = () => {
   const [newDeskripsi, setNewDeskripsi] = useState("");
   const [katChanged, setkatChanged] = useState(false);
   const [newUserid, setNewUserid] = useState("default"); //delete kalo dah bs pass uid
+  const [upimage, setUpimage] = useState(null);
 
   // PENTING!!
   // const location = useLocation();
@@ -41,6 +44,8 @@ const Usrs = () => {
         tipe: newTipe,
         tahun: newTahun,
         lokasi: newLokasi,
+        alamat: newAlamat,
+        stok: newStok,
         harga: newHarga,
         operator: newOperator,
         deposit: newDeposit,
@@ -55,24 +60,34 @@ const Usrs = () => {
   return (
     <>
       <div className="mx-auto container my-28">
-        <div className="mx-auto container border rounded-xl border-blue-700 grid gap-y-4">
-          <div className="text-2xl font-nunito font-black mt-6 text-blue-700">
+        <div className="mx-auto container border rounded-xl shadow-xl border-grey grid gap-y-4">
+          <div className="text-2xl font-nunito font-black mt-10 text-blue-700">
             TAMBAH PRODUK
           </div>
-          <div className="mt-16">
-            <div className=" font-nunito font-bold text-lg">Nama Barang</div>
+          <div className="mt-3">
+            <div className=" font-nunito font-bold text-lg">Nama Produk</div>
             <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Masukkan nama barang"
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Masukkan Nama Produk"
               onChange={(event) => {
                 setNewName(event.target.value);
               }}
             />
           </div>
           <div className="">
+            <div className=" font-nunito font-bold text-lg">Merk</div>
+            <input
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Masukkan Merk"
+              onChange={(event) => {
+                setNewMerk(event.target.value);
+              }}
+            />
+          </div>
+          <div className="">
             <div className=" font-nunito font-bold text-lg">Kategori</div>
             <select
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center"
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center"
               value={newKategori}
               onChange={(event) => {
                 setNewKategori(event.target.value);
@@ -81,11 +96,11 @@ const Usrs = () => {
             >
               {katChanged ? (
                 <option value="" default disabled>
-                  Pilih kategori
+                  Pilih Kategori
                 </option>
               ) : (
                 <option value="" default>
-                  Pilih kategori
+                  Pilih Kategori
                 </option>
               )}
               <option value="mobil">Mobil</option>
@@ -95,20 +110,10 @@ const Usrs = () => {
             </select>
           </div>
           <div className="">
-            <div className=" font-nunito font-bold text-lg">Merk</div>
+            <div className=" font-nunito font-bold text-lg">Tipe Produk</div>
             <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Masukkan merk"
-              onChange={(event) => {
-                setNewMerk(event.target.value);
-              }}
-            />
-          </div>
-          <div className="">
-            <div className=" font-nunito font-bold text-lg">Tipe Barang</div>
-            <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Masukkan tipe barang"
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Masukkan Tipe Produk"
               onChange={(event) => {
                 setNewTipe(event.target.value);
               }}
@@ -117,8 +122,8 @@ const Usrs = () => {
           <div className="">
             <div className=" font-nunito font-bold text-lg">Tahun Produksi</div>
             <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Masukkan Tahun Produksi"
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Masukkan Tahun Produksi, contoh: 2020"
               type="number"
               onChange={(event) => {
                 setNewTahun(event.target.value);
@@ -128,21 +133,40 @@ const Usrs = () => {
           <div className="">
             <div className=" font-nunito font-bold text-lg">Lokasi</div>
             <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Masukan Lokasi"
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Masukkan Lokasi, contoh: Yogyakarta"
               onChange={(event) => {
                 setNewLokasi(event.target.value);
               }}
             />
           </div>
           <div className="">
-            <div className=" font-nunito font-bold text-lg">
-              Harga Barang/Hari
-            </div>
+            <div className=" font-nunito font-bold text-lg">Alamat</div>
+            <input
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Masukkan Alamat, Contoh: Jl. Pandega Marta No. 1 Kel. Caturtunggal, Kec. Depok, Kab. Sleman, DIY 55281"
+              onChange={(event) => {
+                setNewAlamat(event.target.value);
+              }}
+            />
+          </div>
+          <div className="">
+            <div className=" font-nunito font-bold text-lg">Stok Produk</div>
+            <input
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="0"
+              type="number"
+              onChange={(event) => {
+                setNewStok(event.target.value);
+              }}
+            />
+          </div>
+          <div className="">
+            <div className=" font-nunito font-bold text-lg">Harga Sewa Produk/Hari</div>
             <div className="flex gap-x-4 items-center">
               <p className="items-center text-xl">Rp </p>
               <input
-                className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
+                className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
                 placeholder="0"
                 type="number"
                 onChange={(event) => {
@@ -153,7 +177,12 @@ const Usrs = () => {
           </div>
           <div className="">
             <div className=" font-nunito font-bold text-lg">
-              Keamanan Barang
+              Jenis Pengiriman
+            </div>
+          </div>
+          <div className="">
+            <div className=" font-nunito font-bold text-lg">
+              Keamanan Produk
             </div>
             <div className="flex space-x-8">
               {newDeposit === "Tidak" ? (
@@ -198,10 +227,40 @@ const Usrs = () => {
           </div>
           <div className="">
             <div className=" font-nunito font-bold text-lg">
-              Deskripsi Barang
+              Upload Foto Produk
+            </div>
+            <div className = "flex mt-2">
+                <div>
+                  <input className = "form-control w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 focus-within:rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                    type="file"
+                    name="myImage"
+                    onChange={(event) => {
+                    console.log(event.target.files[0]);
+                    setUpimage(event.target.files[0]);
+                  }}
+                  />
+                </div>
+            </div>
+            <div className = "mt-2">
+              {upimage && (
+                <div>
+                <img alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
+                <br />
+                  <button onClick={()=>setUpimage(null)}>
+                    <div className = "border-1 bg-birmid text-white font-black p-2 w-full text-center rounded-md">
+                      Remove
+                    </div>
+                  </button>  
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="">
+            <div className=" font-nunito font-bold text-lg">
+              Deskripsi Produk
             </div>
             <textarea
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 h-48 w-full space-x-6 flex items-center "
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray h-48 w-full space-x-6 flex items-center "
               placeholder="Deskripsikan spesifikasi barang selengkap mungkin"
               onChange={(event) => {
                 setNewDeskripsi(event.target.value);
@@ -209,10 +268,10 @@ const Usrs = () => {
             ></textarea>
           </div>
           <div className="mb-12">
-            <div className=" font-nunito font-bold text-lg">Kondisi Barang</div>
+            <div className=" font-nunito font-bold text-lg">Kondisi Produk</div>
             <input
-              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray-500 w-full space-x-6 flex items-center "
-              placeholder="Contoh: ada sedikit lecet, agak macet, dsb."
+              className="mb-4 px-6 py-3 bg-white border-b-2 border-gray w-full space-x-6 flex items-center "
+              placeholder="Contoh: ada sedikit lecet, ada sedikit goresan, dsb."
               onChange={(event) => {
                 setNewKondisi(event.target.value);
               }}
@@ -235,7 +294,7 @@ const Usrs = () => {
                 className="rounded-full bg-gradient-to-r from-birdong via-birmid to-birmud h-12 w-48 text-xl font-bold text-white font-nunito"
                 onClick={createProduk}
               >
-                Kirim
+                Simpan
               </button>
             )}
           </div>
