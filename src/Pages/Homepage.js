@@ -41,6 +41,11 @@ function Homepage() {
       window.location.reload()
     }
   }
+
+  const handleSearchButton = async (e) => {
+      history.push('/search?query=' + search)
+      window.location.reload()
+  }
   return (
     <div>
       {uid !== "" ? (
@@ -109,7 +114,7 @@ function Homepage() {
               onChange={(e) => { handleSearch(e.target.value) }}
               onKeyUp={handleSearchValue}
             />
-            <button class="focus:outline-none transform transition duration-300 ">
+            <button onClick={() => handleSearchButton()} class="focus:outline-none transform transition duration-300 ">
               <i class="fa fa-search text-gray-500"></i>
             </button>
           </div>

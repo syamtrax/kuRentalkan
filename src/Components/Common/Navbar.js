@@ -23,7 +23,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     localStorage.removeItem("user", JSON.stringify(uid));
-    history.push("/");
+    history.push("/login");
   };
 
   let isLogged = location.state ? location.state.isLogged : "";
