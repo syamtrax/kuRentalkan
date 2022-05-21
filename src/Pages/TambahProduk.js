@@ -7,8 +7,8 @@ import { db } from "../firebase-config";
 import { useLocation } from "react-router-dom";
 import { collection, addDoc } from "@firebase/firestore";
 import { Link } from "react-router-dom";
-import { storage} from "../firebase-config";
-import {ref, getDownloadURL, uploadBytesResumable} from "firebase/storage";
+import { storage } from "../firebase-config";
+import { ref, getDownloadURL, uploadBytesResumable } from "firebase/storage";
 import ProgressBar from "../Components/ProgressBar/progressBar";
 
 const Usrs = () => {
@@ -26,11 +26,14 @@ const Usrs = () => {
   const [newKondisi, setNewKondisi] = useState("");
   const [newDeskripsi, setNewDeskripsi] = useState("");
   const [katChanged, setkatChanged] = useState(false);
-  const [newUserid, setNewUserid] = useState("default"); //delete kalo dah bs pass uid
+  const [newUserid, setNewUserid] = useState(() => {
+    const saved = localStorage.getItem("user");
+    const initialValue = JSON.parse(saved);
+    return initialValue || "";
+  });
   const [upimage, setUpimage] = useState(null);
   const [progress, setProgress] = useState(0);
   const [newUrl, setNewUrl] = useState("");
-  console.log(newUrl);
 
   const bgColor = {
     bgcolor: "#6a1b9a"
@@ -46,31 +49,13 @@ const Usrs = () => {
     if (newKategori === "Pilih kategori") {
       alert("Pilih kategori!");
     } else {
-      const docRef = await addDoc(CollectionRef, {
-        name: newName,
-        kategori: newKategori,
-        merk: newMerk,
-        tipe: newTipe,
-        tahun: newTahun,
-        lokasi: newLokasi,
-        alamat: newAlamat,
-        stok: newStok,
-        harga: newHarga,
-        operator: newOperator,
-        deposit: newDeposit,
-        kondisi: newKondisi,
-        deskripsi: newDeskripsi,
-        userid: newUserid,
-        imageurl : newUrl,
-      });
-
       const storageRef = ref(storage, `products/${upimage.name}`);
       const uploadImage = uploadBytesResumable(storageRef, upimage);
       uploadImage.on(
         "state_changed",
         snapshot => {
-          const progress = 
-          Math.round((snapshot.bytesTransferred/snapshot.totalBytes)*100);
+          const progress =
+            Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100);
           setProgress(progress);
         },
         error => {
@@ -78,18 +63,32 @@ const Usrs = () => {
         },
         () => {
           getDownloadURL(uploadImage.snapshot.ref)
-          .then(url => {
-            setNewUrl(url);
-            console.log("upload success", url)
-          });
+            .then(url => {
+              setNewUrl(url);
+              console.log("upload success", url)
+              const docRef = addDoc(CollectionRef, {
+                name: newName,
+                kategori: newKategori,
+                merk: newMerk,
+                tipe: newTipe,
+                tahun: newTahun,
+                lokasi: newLokasi,
+                alamat: newAlamat,
+                stok: newStok,
+                harga: newHarga,
+                operator: newOperator,
+                deposit: newDeposit,
+                kondisi: newKondisi,
+                deskripsi: newDeskripsi,
+                userid: newUserid._id,
+                imageurl: url,
+              });
+              return docRef;
+            });
         }
       );
     }// console.log(docRef.id)
   };
-
-
-
-
 
   return (
     <>
@@ -263,28 +262,28 @@ const Usrs = () => {
             <div className=" font-nunito font-bold text-lg">
               Upload Foto Produk
             </div>
-            <div className = "mt-2 w-full content-center items-center ">
-                <div className = "">
-                  <input className = "form-control w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 focus-within:rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-                    type="file"
-                    name="myImage"
-                    onChange={(event) => {
+            <div className="mt-2 w-full content-center items-center ">
+              <div className="">
+                <input className="form-control w-full px-2 py-1.5 text-xl font-normal text-gray-700 bg-white bg-clip-padding border border-solid border-gray-300 focus-within:rounded transition ease-in-out focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  type="file"
+                  name="myImage"
+                  onChange={(event) => {
                     console.log(event.target.files[0]);
                     setUpimage(event.target.files[0]);
                   }}
-                  />
-                </div>
+                />
+              </div>
             </div>
-            <div className = "mt-2 w-full">
+            <div className="mt-2 w-full">
               {upimage && (
-                <div className = "w-full">
-                <img className = "content-center" alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
-                <br />
-                  <button onClick={()=>setUpimage(null)}>
-                    <div className = "border-1 bg-birmid text-white font-black p-2 w-full text-center rounded-md">
+                <div className="w-full">
+                  <img className="content-center" alt="not found" width={"250px"} src={URL.createObjectURL(upimage)} />
+                  <br />
+                  <button onClick={() => setUpimage(null)}>
+                    <div className="border-1 bg-birmid text-white font-black p-2 w-full text-center rounded-md">
                       Remove
                     </div>
-                  </button>  
+                  </button>
                 </div>
               )}
             </div>
@@ -311,17 +310,17 @@ const Usrs = () => {
               }}
             />
           </div>
-          <ProgressBar bgcolor = "#0154de" completed={progress}/>
+          <ProgressBar bgcolor="#0154de" completed={progress} />
           <div className="flex justify-end w-full mb-12">
             {katChanged === true ? (
               // <Link to="/">
-                <button
-                  type="submit"
-                  className="rounded-full bg-gradient-to-r from-birdong via-birmid to-birmud h-12 w-48 text-xl font-bold text-white font-nunito"
-                  onClick={createProduk}
-                >
-                  Kirim
-                </button>
+              <button
+                type="submit"
+                className="rounded-full bg-gradient-to-r from-birdong via-birmid to-birmud h-12 w-48 text-xl font-bold text-white font-nunito"
+                onClick={createProduk}
+              >
+                Kirim
+              </button>
               // </Link>
             ) : (
               <button
