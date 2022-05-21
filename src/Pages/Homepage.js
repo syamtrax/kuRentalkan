@@ -107,34 +107,46 @@ function Homepage() {
         <div className="mx-auto container">
           <img src={Kategori} alt="" />
           <div className="pt-6 flex justify-center space-x-3">
-            <Link to="/search">
+            <Link to="/search?query=mobil">
               <button className="transform transition duration-300 md:hover:scale-105">
                 <img src={Mobil} alt="" />
               </button>
             </Link>
             <div className="flex-col space-y-4 w-52">
-              <button className="transform transition duration-300 md:hover:scale-105">
-                <img src={Musik} alt="" />
-              </button>
-              <button className="transform transition duration-300 md:hover:scale-105">
-                <img src={Foto} alt="" />
-              </button>
+              <Link to="/search?query=alat_musik">
+                <button className="transform transition duration-300 md:hover:scale-105">
+                  <img src={Musik} alt="" />
+                </button>
+              </Link>
+              <Link to="/search?query=kamera">
+                <button className="transform transition duration-300 md:hover:scale-105">
+                  <img src={Foto} alt="" />
+                </button>
+              </Link>
             </div>
             <div className="flex-col space-y-4 w-52">
-              <button className="transform transition duration-300 md:hover:scale-105">
-                <img src={Konsol} alt="" />
-              </button>
-              <button className="transform transition duration-300 md:hover:scale-105">
-                <img src={Buku} alt="" />
-              </button>
+              <Link to="/search?query=konsol">
+                <button className="transform transition duration-300 md:hover:scale-105">
+                  <img src={Konsol} alt="" />
+                </button>
+              </Link>
+              <Link to="/search?query=buku">
+                <button className="transform transition duration-300 md:hover:scale-105">
+                  <img src={Buku} alt="" />
+                </button>
+              </Link>
             </div>
             <div className="flex-col space-y-4 w-52">
-              <button className="transform transition duration-300 md:hover:scale-105">
-                <img src={Motor} alt="" />
-              </button>
-              <button className="transform transition duration-300 md:hover:scale-105">
-                <img src={LihatS} alt="" />
-              </button>
+              <Link to="/search?query=motor">
+                <button className="transform transition duration-300 md:hover:scale-105">
+                  <img src={Motor} alt="" />
+                </button>
+              </Link>
+              <Link to="/search?query=mobil">
+                <button className="transform transition duration-300 md:hover:scale-105">
+                  <img src={LihatS} alt="" />
+                </button>
+              </Link>
             </div>
           </div>
         </div>

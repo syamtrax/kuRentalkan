@@ -136,10 +136,12 @@ const Usrs = () => {
                   Pilih Kategori
                 </option>
               )}
-              <option value="mobil">Mobil</option>
               <option value="alat_musik">Alat Musik</option>
+              <option value="buku">Buku</option>
+              <option value="mobil">Mobil</option>
               <option value="motor">Motor</option>
               <option value="konsol">Konsol</option>
+              <option value="kamera">Kamera</option>
             </select>
           </div>
           <div className="">

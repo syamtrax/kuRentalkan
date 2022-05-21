@@ -11,7 +11,7 @@ let snap = new midtransClient.Snap({
  
 let parameter = {
     "transaction_details": {
-        "order_id": "Asadekuontolll",
+        "order_id": "Agung",
         "gross_amount": 40000000
     },
     "credit_card":{
