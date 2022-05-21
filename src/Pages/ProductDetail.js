@@ -1,5 +1,3 @@
-import produk from "../../src/Assets/produkmobil.png";
-import produkutama from "../../src/Assets/Gambar Utama.png";
 import { ChevronRightIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { db } from "../firebase-config";
 import { useState, useEffect } from "react";
@@ -11,12 +9,13 @@ const ProductDetail = () => {
   console.log(location)
   console.log()
   const [prods, setProds] = useState([]);
+  const [proddata, setproddata] = useState({})
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDoc(usersCollectionRef);
       console.log(data.data())
-      
+      setproddata(data.data())
     };
 
     getUsers();
@@ -26,24 +25,23 @@ const ProductDetail = () => {
     return new URLSearchParams(useLocation().search)
   }
 
+  console.log(proddata.harga)
+
   const params = useQuery()
   const paramsId = params !== null ? params.get('id') : ''
   const usersCollectionRef = doc(db, location.pathname.substring(8), paramsId);
   return (
     <div>
       <div className="h-24 " />
-      <div className="mx-auto container font-nunito">
+      <div className="mx-auto container font-nunito pt-16">
         <top>
           <div className="flex border-b-2 ">
             <left className="flex w-2/3">
               <div className="">
                 <div className="border-b-2">
-                  <img className="  mx-auto" src={produkutama} />
-                  <div className="flex ml-1 my-2 mb-5">
-                    <img className="h-20 mx-1 rounded-xl" src={produk} />
-                    <img className="h-20 mx-1 rounded-xl" src={produk} />
-                    <img className="h-20 mx-1 rounded-xl" src={produk} />
-                    <img className="h-20 mx-1 rounded-xl" src={produk} />
+                  <img className="h-40 rounded-lg" src={proddata.imageurl} />
+                  <div className="flex ml-1 my-2 mb-5 w-full">
+                    <img className="h-20 mx-1 rounded-xl" src={proddata.imageurl} />
                   </div>
                 </div>
                 <div className="mt-3">
@@ -85,9 +83,8 @@ const ProductDetail = () => {
               <div className="w-1/2 ml-10">
                 <div className="">
                   <h1 className="text-2xl font-bold ">
-                    Mobil Sangar Jos Gandosssss
+                    {proddata.name}
                   </h1>
-                  <h1 className="text-2xl font-bold ">Asolole Mantapp</h1>
                   <div className="flex my-2">
                     <p className=" border-r-2 pr-2 pr-2 ">Tersewa 100</p>
 
@@ -99,33 +96,36 @@ const ProductDetail = () => {
                     </p>
                   </div>
                   <h1 className="text-3xl font-bold my-4">
-                    Rp20.000.000 / Hari
+                    Rp {proddata.harga} / Hari
                   </h1>
-                  <p className="border-t-2 border-b-2 text-lg text-gray-600 font-bold">
+                  <p className="border-t-2 border-b-2 text-lg text-gray-600 font-bold mb-4">
                     Detail
                   </p>
                   <div className="border-b-2">
-                    <p className="text-gray-500 text-sm mt-2">Kategori :</p>
-                    <p className="text-gray-500 text-sm"> Merek :</p>
-                    <p className="text-gray-500 text-sm"> Tipe Barang :</p>
-                    <p className="text-gray-500 text-sm">Tahun Produksi :</p>
-                    <p className="text-gray-500 text-sm">Berat :</p>
+                    <p className="text-gray-600 text-sm font-bold"> Stok : {proddata.stok}</p>
+                    <p className="text-gray-500 text-sm mt-2">Kategori : {proddata.kategori}</p>
+                    <p className="text-gray-500 text-sm"> Merek : {proddata.merk}</p>
+                    <p className="text-gray-500 text-sm"> Tipe Barang : {proddata.tipe}</p>
+                    <p className="text-gray-500 text-sm">Tahun Produksi : {proddata.tahun}</p>
+                    {/* <p className="text-gray-500 text-sm">Berat :</p>
                     <p className="text-gray-500 text-sm">Tinggi :</p>
                     <p className="text-gray-500 text-sm">Lebar :</p>
-                    <p className="text-gray-500 text-sm">Panjang :</p>
+                    <p className="text-gray-500 text-sm">Panjang :</p> */}
                     <p className="mt-3 text-sm">Deskripsi :</p>
-                    <p className="text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                    <p className="text-sm" >
+                      {proddata.deskripsi}
+                      {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit.
                       Quisque urna nulla, laoreet ut fermentum ac, tempus at
                       sapien. Quisque quis purus eu felis facilisis tincidunt.
                       Donec a eros venenatis, venenatis metus sit amet, egestas
                       ante. Aliquam id pulvinar purus. Pellentesque est ante,
-                      suscipit eget pharetra alique.
+                      suscipit eget pharetra alique. */}
                     </p>
                     <p className="mt-3 text-sm">Kondisi :</p>
                     <p className="mb-3 text-sm">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Quisque urna nulla, laoreet ut fermentum ac.
+                      {proddata.kondisi}
+                      {/* Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Quisque urna nulla, laoreet ut fermentum ac. */}
                     </p>
                   </div>
                   <div className="rounded-lg border-2 flex my-3">
@@ -145,7 +145,7 @@ const ProductDetail = () => {
                     </button>
                   </div>
                   <h1 className="font-bold ">Lokasi</h1>
-                  <p className="mb-3">Yogyakarta, Daerah Istimewa Yogyakarta</p>
+                  <p className="mb-3">{proddata.lokasi}</p>
                 </div>
               </div>
             </left>

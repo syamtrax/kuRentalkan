@@ -36,6 +36,7 @@ const Logistic = () => {
   const [showPay, setshowPay] = useState(false)
   const [ongkirchanged, setongkirchanged] = useState(false)
   const [tokenbayar, settokenbayar] = useState('')
+  const [hargatot, sethargatot] = useState(((harga * jumlah * hari) + costongkir))
   const vouchergratisongkir = 'mobiltistis'
   const ongkir = [{
     text: '-',
@@ -101,8 +102,14 @@ const Logistic = () => {
     getAddress();
   }, [showModal]);
   
+  useEffect(() => {
+    sethargatot(((harga * jumlah * hari) + costongkir))
+  }, [harga, jumlah, hari, costongkir])
+  
+
   useEffect(()=>{
-    fetch('/api').then(
+    fetch('/api',{
+    }).then(
       res => res.text()
     ).then(
       text => settokenbayar(text)
@@ -515,7 +522,7 @@ const Logistic = () => {
           <div className="pl-16 w-3/4">
             <div className="text-lg font-bold">Total Tagihan</div>
             <div className="text-lg font-bold">
-              {((harga * jumlah * hari) + costongkir).toLocaleString('id-ID', {
+              {hargatot.toLocaleString('id-ID', {
                 style: 'currency',
                 currency: 'IDR',
               })}</div>

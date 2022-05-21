@@ -4,6 +4,7 @@ import discvect from "../Assets/Discvect.png";
 import dataDummy from "../dummyCheckout.json";
 import produkmobil from "../Assets/produkmobil.png";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Cart = () => {
   const [products, setProducts] = useState(dataDummy.data);
@@ -129,6 +130,7 @@ const Cart = () => {
                   </p>
                 </div>
                 <div className="my-auto">
+                  <Link to = "/checkout">
                   <button
                     className={
                       totalProd === 0
@@ -138,6 +140,7 @@ const Cart = () => {
                   >
                     Pesan ({totalProd})
                   </button>
+                  </Link>
                 </div>
               </div>
             </div>
