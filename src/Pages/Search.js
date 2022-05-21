@@ -21,10 +21,6 @@ const Search = () => {
     getUsers();
   }, []);
 
-  useEffect(() => {
-    console.log(isLogged);
-  }, [isLogged]);
-
   function useQuery () {
     return new URLSearchParams(useLocation().search)
   }
@@ -50,6 +46,7 @@ const Search = () => {
                     name={prod.name}
                     harga={prod.harga}
                     lokasi={prod.lokasi}
+                    imageurl={prod.imageurl}
                   />
                   </Link>
                 );
