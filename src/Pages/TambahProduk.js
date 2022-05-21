@@ -80,7 +80,7 @@ const Usrs = () => {
                 deposit: newDeposit,
                 kondisi: newKondisi,
                 deskripsi: newDeskripsi,
-                userid: newUserid._id,
+                userid: newUserid,
                 imageurl: url,
               });
               return docRef;
