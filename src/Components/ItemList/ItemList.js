@@ -30,7 +30,12 @@ const ItemList = ({
   };
 
   const decrement = () => {
-    setNum(num - 1);
+    if (num == 1){
+      return
+    }
+    else{
+      setNum(num - 1);
+    }
   };
 
   const change = (e) => {
