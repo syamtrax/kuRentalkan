@@ -90,11 +90,13 @@ const ProductDetail = () => {
                       <p className="text-md text-gray-500 ">
                         24 Jam Setelah Pesanan
                       </p>
+                    </div> */}
+                    {/* <div className="ml-9">
                       <h1 className="text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
                         Pemeriksaan
                       </h1>
                       <p className="text-md text-gray-500 ">Oleh kuRentalkan</p>
-                    </div>
+                    </div> */}
                   </div>
                   {/* <h1 className="text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
                     Pembatalan
