@@ -83,27 +83,25 @@ const ProductDetail = () => {
                     </p>
                   </div>
                   <div className="flex my-1">
-                    <div>
+                    {/* <div>
                       <h1 className="text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
                         Jenis Sewa
                       </h1>
                       <p className="text-md text-gray-500 ">
                         24 Jam Setelah Pesanan
                       </p>
-                    </div>
-                    <div className="ml-9">
                       <h1 className="text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
                         Pemeriksaan
                       </h1>
                       <p className="text-md text-gray-500 ">Oleh kuRentalkan</p>
                     </div>
                   </div>
-                  <h1 className="text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
+                  {/* <h1 className="text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
                     Pembatalan
                   </h1>
                   <p className="text-md text-gray-500 ">
                     Tidak Dapat Dibatalkan
-                  </p>
+                  </p> */}
                 </div>
               </div>
               <div className="w-1/2 ml-10">
@@ -112,13 +110,13 @@ const ProductDetail = () => {
                     {proddata.name}
                   </h1>
                   <div className="flex my-2">
-                    <p className=" border-r-2 pr-2 ">Tersewa 100</p>
+                    <p className=" border-r-2 pr-2 ">Tersewa 0</p>
 
                     <p className=" border-r-2 pr-2 ml-2">
-                      4.9 &#40;<a className="text-gray-500">80 ulasan</a>&#41;
+                      0.0 &#40;<a className="text-gray-500">0 ulasan</a>&#41;
                     </p>
                     <p className=" ml-2">
-                      Diskusi &#40;<a className="text-gray-500">25</a>&#41;
+                      Diskusi &#40;<a className="text-gray-500">0</a>&#41;
                     </p>
                   </div>
                   <h1 className="text-3xl font-bold my-4">
@@ -162,8 +160,8 @@ const ProductDetail = () => {
                       </h1>
                       <p className="-mt-2 text-sm">Online</p>
                       <div className="flex -mt-1">
-                        <p className=" border-r-2 pr-2">4.9</p>
-                        <p className="ml-2">10 Menit</p>
+                        <p className=" border-r-2 pr-2">5.0</p>
+                        <p className="ml-2">1 Menit</p>
                       </div>
                     </div>
                     <button className="-mt-5 rounded-full bg-gradient-to-r font-bold from-birdong via-birmid to-birmud text-white text-sm py-1 px-4 justify-self-end place-self-center">
@@ -241,7 +239,7 @@ const ProductDetail = () => {
             <div className="flex gap-x-2 mb-2 font-nunito text-transparent font-black text-xl bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
               Ulasan dan Penilaian
               <div className="font-bold text-lg bg-clip-text bg-gray-700">
-                (80)
+                (0)
               </div>
             </div>
             {/* <div className="text-black font-nunito text-md font-extrabold">
@@ -250,8 +248,11 @@ const ProductDetail = () => {
             <div className="rounded-md border-2 font-semibold mb-4">
               <div className="font-semibold w-full">
                 <div className="rounded-md bg-gray-100 w-full p-12 font-semibold">
-                  <div className="my-auto w-full text-center">
+                  <div className="my-auto w-full text-center font-bold">
                     Belum ada ulasan tentang produk ini
+                  </div>
+                  <div className="text-gray-500 text-center">
+                    Jadilah yang pertama menyewa produk ini dan berikan ulasan
                   </div>
                 </div>
               </div>
@@ -306,7 +307,7 @@ const ProductDetail = () => {
             <div className="flex my-2 gap-x-2 mb-2 justify-star font-nunito text-transparent font-black text-xl bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
               Diskusi
               <div className="font-bold text-lg bg-clip-text bg-gray-700">
-                (80)
+                (0)
               </div>
               <div className="w-96"></div>
               <div className="font-bold text-xs text-gray-500 h-4 place-self-center border-dotted border rounded-lg">
@@ -325,7 +326,7 @@ const ProductDetail = () => {
             <div className="rounded-md border-2 font-semibold mb-4">
               <div className="font-semibold w-full">
                 <div className="rounded-md bg-gray-100 w-full p-12 font-semibold">
-                  <div className="my-auto w-full text-center">
+                  <div className="my-auto w-full text-center font">
                     Belum ada diskusi tentang produk ini
                   </div>
                   <div className="my-auto w-full text-center font-black font-nunito text-blue-700 ">
