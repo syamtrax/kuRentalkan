@@ -86,8 +86,15 @@ const Logistic = () => {
       alert('Pilih metode pengiriman!')
       return
     }
-    //setshowPay(!showPay)
-    window.snap.pay(tokenbayar);
+    fetch('/api', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ amount: hargatot })
+    }).then(
+      res => res.text()
+    ).then(
+      text => settokenbayar(text)
+    ).then(window.snap.pay(tokenbayar));
   }
 
   useEffect(() => {
@@ -97,36 +104,38 @@ const Logistic = () => {
       // console.log(address)
     };
 
-  
+
 
     getAddress();
   }, [showModal]);
-  
+
   useEffect(() => {
     sethargatot(((harga * jumlah * hari) + costongkir))
   }, [harga, jumlah, hari, costongkir])
-  
 
-  useEffect(()=>{
-    fetch('/api',{
-    }).then(
-      res => res.text()
-    ).then(
-      text => settokenbayar(text)
-    );
-  });
+  // useEffect(() => {
+  //   fetch('/api', {
+  //     method: 'POST',
+  //     headers: { 'Content-Type': 'application/json' },
+  //     body: JSON.stringify({ amount: hargatot })
+  //   }).then(
+  //     res => res.text()
+  //   ).then(
+  //     text => settokenbayar(text)
+  //   );
+  // }, []);
 
   useEffect(() => {
     const snapSrcUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
     const myMidtransClientKey = 'SB-Mid-client-tt03aJ7OWlHB2-1Q'; //change this according to your client-key
-  
+
     const script = document.createElement('script');
     script.src = snapSrcUrl;
     script.setAttribute('data-client-key', myMidtransClientKey);
     script.async = true;
-  
+
     document.body.appendChild(script);
-  
+
     return () => {
       document.body.removeChild(script);
     }
