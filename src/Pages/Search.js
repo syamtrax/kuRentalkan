@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import { db } from "../firebase-config";
-import { collection, getDocs, addDoc } from "@firebase/firestore";
+import { collection, getDocs } from "@firebase/firestore";
 
 const Search = () => {
   const location = useLocation();
@@ -11,6 +11,14 @@ const Search = () => {
   let isLogged = location.state ? location.state.isLogged : "";
 
   const [prods, setProds] = useState([]);
+
+  function useQuery () {
+    return new URLSearchParams(useLocation().search)
+  }
+
+  const params = useQuery()
+  const paramsId = params ? params.get('query') : ''
+  const usersCollectionRef = collection(db, paramsId);
 
   useEffect(() => {
     const getUsers = async () => {
@@ -21,13 +29,6 @@ const Search = () => {
     getUsers();
   }, []);
 
-  function useQuery () {
-    return new URLSearchParams(useLocation().search)
-  }
-
-  const params = useQuery()
-  const paramsId = params ? params.get('query') : ''
-  const usersCollectionRef = collection(db, paramsId);
   return (
     <div>
       <div className="flex flex-col items-center">

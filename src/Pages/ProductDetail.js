@@ -1,42 +1,68 @@
 import { ChevronRightIcon, UserCircleIcon } from "@heroicons/react/outline";
 import { db } from "../firebase-config";
+import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import Card from "../Components/Card/SearchCard";
 import { useLocation } from "react-router-dom";
+
 const ProductDetail = () => {
-  const location = useLocation();
-  console.log(location)
-  console.log()
-  const [prods, setProds] = useState([]);
+  const location = useLocation()
+  const [prods, setProds] = useState([])
   const [proddata, setproddata] = useState({})
+  const [jumlah, setjumlah] = useState(1)
+  const currDate = new Date().toISOString().slice(0, 10);
+  const [startDate, setstartDate] = useState(currDate)
+  const [endDate, setendDate] = useState(currDate)
+
+  function useQuery() {
+    return new URLSearchParams(useLocation().search)
+  }
+
+  const params = useQuery()
+  const paramsId = params !== null ? params.get('id') : ''
+  const usersCollectionRef = doc(db, location.pathname.substring(8), paramsId);
+  
+  function parseDate(str) {
+    var mdy = str.split('-');
+    return new Date(mdy[2], mdy[0] - 1, mdy[1]);
+  }
+
+  function datediff(first, second) {
+    // Take the difference between the dates and divide by milliseconds per day.
+    // Round to nearest whole number to deal with DST.
+    return Math.floor((first.getTime() - second.getTime()) / (1000 * 3600 * 24 * 365));
+  }
 
   useEffect(() => {
     const getUsers = async () => {
       const data = await getDoc(usersCollectionRef);
-      console.log(data.data())
-      setproddata(data.data())
+      setproddata(() => ({ ...data.data(), id: data.id }))
     };
 
     getUsers();
   }, []);
 
-  function useQuery () {
-    return new URLSearchParams(useLocation().search)
-  }
+  useEffect(() => {
+    if (proddata.kategori) {
+      const totalCollectionRef = collection(db, proddata.kategori);
 
-  console.log(proddata.harga)
+      const getTotal = async () => {
+        const data = await getDocs(totalCollectionRef);
+        setProds(data.docs.map((doc) => ({ ...doc.data(), id: doc.id })));
+      };
 
-  const params = useQuery()
-  const paramsId = params !== null ? params.get('id') : ''
-  const usersCollectionRef = doc(db, location.pathname.substring(8), paramsId);
+      getTotal();
+    }
+  }, [proddata]);
+
   return (
     <div>
       <div className="h-24 " />
       <div className="mx-auto container font-nunito pt-16">
-        <top>
-          <div className="flex border-b-2 ">
-            <left className="flex w-2/3">
+        <div>
+          <div className="flex border-b-2 w-full">
+            <div className="flex w-full">
               <div className="">
                 <div className="border-b-2">
                   <img className="h-40 rounded-lg" src={proddata.imageurl} />
@@ -86,7 +112,7 @@ const ProductDetail = () => {
                     {proddata.name}
                   </h1>
                   <div className="flex my-2">
-                    <p className=" border-r-2 pr-2 pr-2 ">Tersewa 100</p>
+                    <p className=" border-r-2 pr-2 ">Tersewa 100</p>
 
                     <p className=" border-r-2 pr-2 ml-2">
                       4.9 &#40;<a className="text-gray-500">80 ulasan</a>&#41;
@@ -148,7 +174,66 @@ const ProductDetail = () => {
                   <p className="mb-3">{proddata.lokasi}</p>
                 </div>
               </div>
-            </left>
+              <div className="w-1/3 font-nunito">
+                <div className="m-4 border-2 border-gray-200 rounded-lg p-4 max-h-min">
+                  <label htmlFor="date" className="flex justify-around mt-4 p-2 rounded-md bg-gray-200 font-black">
+                    <input type="date" className="w-2/5 bg-gray-200 font-black" value={startDate} onChange={(e) => { setstartDate(e.target.value) }} />
+                    <p>-</p>
+                    <input type="date" className="w-2/5 bg-gray-200 font-black" value={endDate} onChange={(e) => { setendDate(e.target.value) }} />
+                  </label>
+                  <p className="text-sm text-gray-400 mt-2 mb-4">Minimum 1 hari</p>
+                  <div className="flex my-2 border-t-2 border-b-2 border-gray-200 justify-between">
+                    <div>
+                      <p>
+                        Jumlah Barang
+                      </p>
+                      <p className="text-sm text-gray-400">
+                        Stok: {proddata.stok}
+                      </p>
+                    </div>
+                    <div className="place-self-center rounded-md bg-gray-200 flex gap-x-3 border-gray-400 border text-gray-400 p-1">
+                      <button onClick={() => {
+                        if (jumlah - 1 > 0) {
+                          setjumlah(jumlah - 1)
+                        }
+                      }}>
+                        -
+                      </button>
+                      <p className="text-gray-500">{jumlah}</p>
+                      <button onClick={() => {
+                        const stok = proddata.stok
+                        if (jumlah + 1 > stok) {
+                          setjumlah(stok)
+                        } else {
+                          setjumlah(jumlah + 1)
+                        }
+                      }}>
+                        +
+                      </button>
+                    </div>
+                  </div>
+                  <div className="flex justify-end">
+                    <Link to="/cart" >
+                      <button className="rounded-full w-full text-center bg-gradient-to-r font-bold from-birdong via-birmid to-birmud text-white text-sm py-1 px-4 justify-self-end place-self-center"
+                        onClick={() => {
+                          const cart = JSON.parse(localStorage.getItem('cartData') || "[]")
+                          let updatecart = {
+                            ...proddata,
+                            jumlah: jumlah,
+                            startDate: startDate,
+                            endDate: endDate,
+                            hari: datediff(parseDate(endDate), parseDate(startDate))
+                          }
+                          cart.push(updatecart)
+                          localStorage.setItem('cartData', JSON.stringify(cart))
+                        }}>
+                        Pesan
+                      </button>
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
             <right></right>
           </div>
           {/* feedback */}
@@ -159,10 +244,19 @@ const ProductDetail = () => {
                 (80)
               </div>
             </div>
-            <div className="text-black font-nunito text-md font-extrabold">
+            {/* <div className="text-black font-nunito text-md font-extrabold">
               Ulasan paling relevan
+            </div> */}
+            <div className="rounded-md border-2 font-semibold mb-4">
+              <div className="font-semibold w-full">
+                <div className="rounded-md bg-gray-100 w-full p-12 font-semibold">
+                  <div className="my-auto w-full text-center">
+                    Belum ada ulasan tentang produk ini
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="flex mb-4 gap-x-4">
+            {/* <div className="flex mb-4 gap-x-4">
               <div className="w-1/6 flex border-r-2 rounded-r-sm font-nunito text-md text-gray-600 font-extrabold">
                 <UserCircleIcon className="text-gray-400 h-8 my-2 mr-2" />
                 <div className="place-self-center">Nama</div>
@@ -205,7 +299,7 @@ const ProductDetail = () => {
             </div>
             <div className="mb-6 text-transparent flex justify-end font-nunito text-md font-black bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
               Lihat Semua Ulasan dan Penilaian
-            </div>
+            </div> */}
           </div>
           {/* end of feedback  */}
           <div className="">
@@ -228,7 +322,22 @@ const ProductDetail = () => {
                 Tuliskan pertanyaan
               </div>
             </div>
-            <div className="flex flex-col gap-4">
+            <div className="rounded-md border-2 font-semibold mb-4">
+              <div className="font-semibold w-full">
+                <div className="rounded-md bg-gray-100 w-full p-12 font-semibold">
+                  <div className="my-auto w-full text-center">
+                    Belum ada diskusi tentang produk ini
+                  </div>
+                  <div className="my-auto w-full text-center font-black font-nunito text-blue-700 ">
+                    Jadilah yang pertama!
+                  </div>
+                  <div className="rounded-full bg-gradient-to-r font-bold from-birdong via-birmid to-birmud text-white text-sm py-1 px-4 text-center w-1/6 mx-auto">
+                    Mulai Diskusi
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* <div className="flex flex-col gap-4">
               <div className="rounded-md border-2 font-semibold">
                 <div className="flex my-2 mx-4">
                   <UserCircleIcon className="text-gray-400 h-8 my-2 mr-2" />
@@ -277,9 +386,9 @@ const ProductDetail = () => {
                   <div className="h-2"></div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
-        </top>
+        </div>
         <bottom>
           <div className="flex">
             <h1 className="w-10/12 my-auto text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">
@@ -293,12 +402,14 @@ const ProductDetail = () => {
             </button>
           </div>
           <div className=" mb-14 grid grid-cols-5 ">
-            {prods.map((prod) => {
+            {prods.map((prod, ind) => {
               return (
                 <Card
                   name={prod.name}
                   harga={prod.harga}
                   lokasi={prod.lokasi}
+                  imageurl={prod.imageurl}
+                  key={ind}
                 />
               );
             })}
