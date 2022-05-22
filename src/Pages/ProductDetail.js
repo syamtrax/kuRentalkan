@@ -64,11 +64,11 @@ const ProductDetail = () => {
           <div className="flex border-b-2 w-full">
             <div className="flex w-full">
               <div className="">
-                <div className="border-b-2">
-                  <img className="h-40 rounded-lg" src={proddata.imageurl} />
-                  <div className="flex ml-1 my-2 mb-5 w-full">
-                    <img className="h-20 mx-1 rounded-xl" src={proddata.imageurl} />
-                  </div>
+                <div className=" flex justify-center">
+                  <img className="h-96 w-5/6 rounded-lg object-contain bg-gray-200" src={proddata.imageurl} />
+                </div>
+                <div className="flex ml-1 my-2 mb-5 w-full justify-center border-b-2 pb-4">
+                    <img className="h-16 w-16 mx-1 rounded-xl object-cover" src={proddata.imageurl} />
                 </div>
                 <div className="mt-3">
                   <h1 className="flex   text-transparent font-black text-lg bg-clip-text bg-gradient-to-br from-blue-700 to-blue-400">

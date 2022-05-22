@@ -3,7 +3,7 @@ import produk from "../../Assets/produkmobil.png";
 const SearchCard = (props) => {
   return (
     <div className="mt-4 ml-2  border shadow-lg rounded-md w-52 ">
-      <img src={props.imageurl && props.imageurl !== "" ? props.imageurl : produk} className="rounded-md w-full" />
+      <img src={props.imageurl && props.imageurl !== "" ? props.imageurl : produk} className="rounded-md w-full h-40 object-cover" />
       <h1 className="mx-2 mt-2">{props.name}</h1>
       <p className="mx-2 font-bold">Rp{props.harga}/hari</p>
       <div className="flex mx-2">
