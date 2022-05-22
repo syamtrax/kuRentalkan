@@ -210,11 +210,11 @@ const Usrs = () => {
               />
             </div>
           </div>
-          <div className="">
+          {/* <div className="">
             <div className=" font-nunito font-bold text-lg">
               Jenis Pengiriman
             </div>
-          </div>
+          </div> */}
           <div className="">
             <div className=" font-nunito font-bold text-lg">
               Keamanan Produk

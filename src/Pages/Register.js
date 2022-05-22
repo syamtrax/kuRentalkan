@@ -305,7 +305,7 @@ function Register() {
           <div className="flex justify-center items-center py-2">
             <p className="text-center">
               Sudah memiliki akun?{" "}
-              <a className="text-blue-300 font-bold">
+              <a className="text-blue-600 font-bold">
                 <Link to="/login">Login di sini </Link>
               </a>
             </p>
