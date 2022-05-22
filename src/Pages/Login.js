@@ -100,11 +100,15 @@ const Login = () => {
             <div className="flex mt-10 items-center flex-col">
               <img src={logo} alt="kuRentalkan" className="w-45 " />
             </div>
-            <div>
-
-            </div>
+            <div></div>
           </div>
-          <div style={{backgroundImage: "url(/img/vectorLogin.png)", backgroundRepeat: "no-repeat", backgroundPosition: "center"}}>
+          <div
+            style={{
+              backgroundImage: "url(/img/vectorLogin.png)",
+              backgroundRepeat: "no-repeat",
+              backgroundPosition: "center",
+            }}
+          >
             <div className="mx-8 md:mx-auto mt-20 mb-16 border-2 rounded-2xl bg-white shadow-lg w-1/3 pb-8">
               <div className="max-w-md  font-nunito m-auto">
                 <h1 className="font-bold text-2xl mb-16 mt-16">Masuk</h1>
@@ -149,11 +153,11 @@ const Login = () => {
                               setToggle(!toggle);
                             }}
                           >
-                            {!toggle ? (
+                            {/* {!toggle ? (
                               <EyeIcon className="absolute h-5 right-0 bottom-5" />
                             ) : (
                               <EyeOffIcon className="absolute h-5 right-0 bottom-5" />
-                            )}
+                            )} */}
                           </button>
                         </div>
                       </form>
@@ -185,32 +189,38 @@ const Login = () => {
                       >
                         Masuk
                       </button>
-                      <span className="hidden lg:block my-2 text-blue-500 font-nunito">
+                      <p className="mb-4 hidden lg:block text-gray-500">
+                        Belum punya akun kuRentalkan?{" "}
+                        <a className="text-blue-600">
+                          <Link to="/register">Daftar </Link>
+                        </a>
+                      </p>
+                      {/* <span className="hidden lg:block my-2 text-blue-500 font-nunito">
                         <Link to="/register">Belum punya akun? Daftar </Link>
-                      </span>
+                      </span> */}
                     </div>
                   </div>
                 </div>
                 <div className="items-center py-2">
                   <div className="flex my-2 text-gray-600 gap-x-2 items-center justify-center">
-                    <div className="h-px w-52 bg-gray-300" />
-                    atau
-                    <div className="h-px w-52 bg-gray-300" />
+                    <div className="h-px w-36 bg-gray-300" />
+                    atau masuk dengan
+                    <div className="h-px w-36 bg-gray-300" />
                   </div>
                 </div>
                 <div className="flex justify-center lg:hidden space-x-4">
                   <LoginBy thirdParty={"Google"} />
-                  <LoginBy thirdParty={"kedua"} />
+                  {/* <LoginBy thirdParty={"kedua"} /> */}
                 </div>
                 <div className="space-y-4 hidden lg:block">
                   <LoginBy thirdParty={"Google"} />
-                  <LoginBy thirdParty={"kedua"} />
+                  {/* <LoginBy thirdParty={"kedua"} /> */}
                 </div>
               </div>
               <div className="hidden lg:flex items-center flex-col">
                 <span className="mt-10 font-nunito text-center text-sm md:text-left">
                   Butuh bantuan?{" "}
-                  <Link to="/faq" className="text-blue-500">
+                  <Link to="/faq" className="text-blue-600">
                     Hubungi Kurentalkan Care
                   </Link>
                 </span>
@@ -223,7 +233,7 @@ const Login = () => {
         <div className="flex justify-center items-center py-2">
           <p className="text-center">
             Belum memiliki akun?{" "}
-            <a className="text-blue-300 font-bold">
+            <a className="text-blue-600 font-bold">
               <Link to="/register">Register di sini </Link>
             </a>
           </p>

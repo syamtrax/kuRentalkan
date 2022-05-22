@@ -135,9 +135,30 @@ function Register() {
               <img className="my-auto" src={vectorRegis} alt=""></img>
               <div className="mx-8 md:mx-auto mb-16 bg-white border-2 rounded-xl shadow-lg p-12">
                 <div className="max-w-md  font-nunito m-auto">
-                  <h1 className="font-bold flex flex-col items-center text-2xl mb-5 mt-5">
-                    Buat Akun
+                  <h1 className="font-bold flex flex-col items-center text-2xl mt-5">
+                    Daftar Sekarang
                   </h1>
+                  <p className="mb-5 hidden lg:block text-center text-gray-500">
+                    Sudah punya akun kuRentalkan?{" "}
+                    <a className="text-blue-600">
+                      <Link to="/login">Masuk </Link>
+                    </a>
+                  </p>
+                  <div className="flex justify-center lg:hidden space-x-4 mb-5">
+                    <LoginBy thirdParty={"Google"} />
+                    {/* <LoginBy thirdParty={"kedua"}  /> */}
+                  </div>
+                  <div className="space-y-4 hidden lg:block mb-5">
+                    <LoginBy thirdParty={"Google"} />
+                    {/* <LoginBy thirdParty={"kedua"} /> */}
+                  </div>
+                  <div className="items-center ">
+                    <div className="flex my-2 text-gray-600 gap-x-2 items-center justify-center mb-5">
+                      <div className="h-px w-36 bg-gray-300" />
+                      atau daftar dengan
+                      <div className="h-px w-36 bg-gray-300" />
+                    </div>
+                  </div>
                   <div className="flex flex-col">
                     <div className="flex flex-col">
                       <label className="text-base" htmlFor="Email Address">
@@ -173,11 +194,11 @@ function Register() {
                               setToggle(!toggle);
                             }}
                           >
-                            {toggle ? (
+                            {/* {toggle ? (
                               <EyeIcon className="absolute h-5 right-0 bottom-5" />
                             ) : (
                               <EyeOffIcon className="absolute h-5 right-0 bottom-5" />
-                            )}
+                            )} */}
                           </button>
                         </div>
                       </div>
@@ -239,43 +260,22 @@ function Register() {
                       type="submit"
                       className={`${
                         email && email && phonenumber !== ""
-                          ? "bg-blue-500 text-white"
-                          : "bg-gray-300"
+                          ? "bg-blue-600 text-white"
+                          : "bg-gray-300 text-gray-600"
                       } mt-6 mb-4 text-base font-bold w-full lg:w-60 h-10 radius rounded-full lg:rounded-md`}
                       onClick={() => {
                         handleRegister();
                       }}
                     >
-                      Daftar Sekarang
+                      Daftar
                     </button>
-                    <p className="mb-4 hidden lg:block">
-                      Sudah punya akun?{" "}
-                      <a className="text-blue-300">
-                        <Link to="/login">Masuk </Link>
-                      </a>
-                    </p>
-                  </div>
-                  <div className="items-center ">
-                    <div className="flex my-2 text-gray-600 gap-x-2 items-center justify-center">
-                      <div className="h-px w-52 bg-gray-300" />
-                      atau
-                      <div className="h-px w-52 bg-gray-300" />
-                    </div>
-                  </div>
-                  <div className="flex justify-center lg:hidden space-x-4">
-                    <LoginBy thirdParty={"Google"} />
-                    <LoginBy thirdParty={"kedua"}  />
-                  </div>
-                  <div className="space-y-4 hidden lg:block">
-                    <LoginBy thirdParty={"Google"} />
-                    <LoginBy thirdParty={"kedua"} />
                   </div>
                   <div className="hidden lg:flex items-center text-center flex-col text-sm">
                     <span className="mt-10">
                       Dengan melanjutkan, Anda menyetujui{" "}
-                      <a className="text-blue-300">Syarat dan Ketentuan kami</a>{" "}
+                      <a className="text-blue-600">Syarat dan Ketentuan kami</a>{" "}
                       dan juga{" "}
-                      <a className="text-blue-300">Kebijakan Privasi kami</a>
+                      <a className="text-blue-600">Kebijakan Privasi kami</a>
                     </span>
                   </div>
                 </div>
