@@ -5,9 +5,8 @@ import vectorRegis from "../Assets/vectorRegis.png";
 import LoginBy from "../Components/LoginBy/LoginBy";
 import ModalComponent from "../Components/Modal/Modal";
 import { Link } from "react-router-dom";
-import { db } from '../firebase-config';
-import { collection, addDoc  } from '@firebase/firestore';
-
+import { db } from "../firebase-config";
+import { collection, addDoc } from "@firebase/firestore";
 
 function Register() {
   const [email, setEmail] = useState("");
@@ -34,7 +33,7 @@ function Register() {
   // const createUser = async () => {
   //   await addDoc(usersCollectionRef, {email: email, password: password, nomor: phonenumber});
   // };
-  const usersCollectionRef = collection(db, 'users');
+  const usersCollectionRef = collection(db, "users");
 
   const validateEmail = (email) => {
     const re =
@@ -106,7 +105,11 @@ function Register() {
     // eslint-disable-next-line no-unused-vars
     const otpChecked = validateOTP(OTP);
     if (emailChecked && passwordChecked && phoneChecked) {
-      await addDoc(usersCollectionRef, {email: email, password: password, nomor: phonenumber});
+      await addDoc(usersCollectionRef, {
+        email: email,
+        password: password,
+        nomor: phonenumber,
+      });
       toggleModal(!modalShown);
       toggleOtp(true);
     }
@@ -129,7 +132,6 @@ function Register() {
               <div className="flex items-center flex-col mt-10">
                 <img src={logo} alt="kuRentalkan" className="w-45 " />
               </div>
-              <div></div>
             </div>
             <div className="grid grid-cols-2 w-2/3 mx-auto mt-20">
               <img className="my-auto" src={vectorRegis} alt=""></img>
